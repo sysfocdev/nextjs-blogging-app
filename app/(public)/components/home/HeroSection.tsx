@@ -4,7 +4,6 @@ import React from "react";
 
 const HeroSection = () => {
   return (
-    <div className='w-full md:w-[68%]'>
       <div className='relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-xl group'>
         <Image
           src='/banner.webp'
@@ -32,7 +31,6 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
