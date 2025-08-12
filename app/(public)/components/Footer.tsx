@@ -4,6 +4,7 @@ import React from "react";
 import { FaFacebook, FaGithub, FaInstagram, FaPinterest } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
+
 const Footer = () => {
   return (
     <footer className='shadow-sm'>
@@ -24,7 +25,7 @@ const Footer = () => {
             <Link href='/' className='text-sm text-gray-500'>
               About
             </Link>
-            <Link href='/' className='text-sm text-gray-500'>
+            <Link href="/contact" className='text-sm text-gray-500'>
               Contact
             </Link>
             <Link href='/' className='text-sm text-gray-500'>
