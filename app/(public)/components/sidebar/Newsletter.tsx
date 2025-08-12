@@ -8,7 +8,7 @@ const Newsletter = () => {
       <div className='mt-4 flex flex-col items-center justify-center'>
         <div className='flex items-center'>
           <FaFireFlameCurved size={20} className='mr-2 text-[#FE4F70]' />
-          <h2 className='text-xl font-bold'>Newsletterdsdssd</h2>
+          <h2 className='text-xl font-bold'>Newsletter</h2>
         </div>
         <div className='mt-2'>
           <svg width='33' height='6' xmlns='http://www.w3.org/2000/svg'>
