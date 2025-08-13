@@ -7,7 +7,7 @@ const Navlinks = () => {
         <Link href='/' className='text-sm'>
           Home
         </Link>
-        <Link href='/' className='text-sm'>
+        <Link href='/categories' className='text-sm'>
           Categories
         </Link>
         <Link href='/' className='text-sm'>

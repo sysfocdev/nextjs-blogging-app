@@ -11,6 +11,7 @@ export default function Home() {
         <EditorsPick />
         <Trending />
         <LatestPosts />
+        
       </div>
       <Sidebar />
     </section>
