@@ -74,7 +74,7 @@ export default function Page() {
   const totalPages = Math.ceil(blogPosts.length / cardsPerPage);
 
   return (
-    <section className="flex flex-col md:flex-row justify-between gap-x-6 gap-y-5">
+    <section className="flex flex-col md:flex-row justify-between gap-x-6 gap-y-5 mx-4 md:mx-12 my-8">
       {/* Blog Cards */}
       <div className="w-full md:w-[68%] p-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
@@ -124,7 +124,7 @@ export default function Page() {
           <button
             disabled={currentPage === 1}
             onClick={() => setCurrentPage(currentPage - 1)}
-            className="px-3 py-1 border rounded disabled:opacity-50"
+            className="px-3 py-1 border cursor-pointer   rounded disabled:opacity-50"
           >
             Prev
           </button>
@@ -134,8 +134,8 @@ export default function Page() {
               onClick={() => setCurrentPage(index + 1)}
               className={`px-3 py-1 border rounded ${
                 currentPage === index + 1
-                  ? "bg-gradient-to-r from-[#FE4F70] to-[#FFA387] text-white"
-                  : ""
+                  ? "bg-gradient-to-r from-[#FE4F70] to-[#FFA387] text-white cursor-pointer"
+                  : "cursor-pointer"
               }`}
             >
               {index + 1}
@@ -144,7 +144,7 @@ export default function Page() {
           <button
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage(currentPage + 1)}
-            className="px-3 py-1 border rounded disabled:opacity-50"
+            className="px-3 py-1 border cursor-pointer rounded disabled:opacity-50"
           >
             Next
           </button>
