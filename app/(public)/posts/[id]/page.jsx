@@ -47,9 +47,9 @@ export default function PostDetailsPage() {
   }
 
   return (
-    <section className='flex justify-between gap-x-6 gap-y-5 "mx-4 md:mx-12 my-8"'>
+    <section className="flex flex-col md:flex-row justify-between gap-x-6 gap-y-5 mx-4 md:mx-12 my-8">
       <div className='w-full md:w-[68%]'>
-        <div className="mt-4">
+        <div className="mb-6">
           <Link href="/" className="px-4 py-2 rounded bg-gradient-to-r from-[#FE4F70] to-[#FFA387] text-white">← Back</Link>
         </div>
 
@@ -65,7 +65,7 @@ export default function PostDetailsPage() {
         </div>
 
         
-        <div className="mt-8 border border-gray-200/70 rounded-xl p-6">
+        <div className="mt-8 p-6">
           <div className='my-4'>
             <div className='flex items-center'>
               <h3 className='text-2xl font-bold'>Leave a Replay</h3>
@@ -140,8 +140,10 @@ export default function PostDetailsPage() {
             ))}
           </ul>
         </div>
+       
       </div>
       <Sidebar />
     </section>
+    
   );
 }
