@@ -76,7 +76,7 @@ export default function Page() {
   return (
     <section className="flex flex-col md:flex-row justify-between gap-x-6 gap-y-5 mx-4 md:mx-12 my-8">
       {/* Blog Cards */}
-      <div className="w-full md:w-[68%] p-4">
+      <div className="w-full md:w-[68%]">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
           {currentCards.map((post) => (
             <div key={post.id} className="relative">

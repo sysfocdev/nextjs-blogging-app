@@ -98,7 +98,7 @@ const LatestPosts = () => {
                     <div className='w-1 h-1 rounded-full bg-[#FE4F70]' />
                     <p className='text-sm'>March 23, 2023</p>
                   </div>
-                  <Link href='/'>
+                  <Link href={`/posts/${post.id}`}>
                     <h3 className='font-bold text-xl'>{post?.title}</h3>
                   </Link>
                   <p className='text-gray-400 my-2'>{post?.description}</p>
