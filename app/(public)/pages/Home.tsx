@@ -3,6 +3,7 @@ import EditorsPick from "@/app/(public)/components/home/EditorsPick";
 import Trending from "@/app/(public)/components/home/Trending";
 import LatestPosts from "@/app/(public)/components/home/LatestPosts";
 import Sidebar from "@/app/(public)/components/home/Sidebar";
+import Conclusion from "@/app/(public)/components/home/Conclusion";
 export default function Home() {
   return (
     <section className='flex justify-between gap-x-6 gap-y-5'>
@@ -11,6 +12,7 @@ export default function Home() {
         <EditorsPick />
         <Trending />
         <LatestPosts />
+        <Conclusion/>
         
       </div>
       <Sidebar />
