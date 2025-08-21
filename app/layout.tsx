@@ -4,6 +4,7 @@ import "./globals.css";
 import {ThemeProvider} from '@/app/(public)/components/ThemeProvider';
 import Header from "@/app/(public)/components/Header";
 import Footer from "@/app/(public)/components/Footer";
+import { Toaster } from "react-hot-toast";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -24,6 +25,9 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <body className={`${montserrat.className} antialiased max-w-[1680px] mx-auto`}>
+     
+    
+     
         <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -33,6 +37,9 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+       <Toaster toastOptions={{
+        duration:2000
+       }}/>
         </ThemeProvider>
       </body>
     </html>

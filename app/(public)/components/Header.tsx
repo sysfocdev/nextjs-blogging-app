@@ -3,7 +3,7 @@ import React from "react";
 import Navlinks from "@/app/(public)/components/navbar/Navlinks";
 import Darkmode from "@/app/(public)/components/navbar/Darkmode";
 import MobileNav from "@/app/(public)/components/navbar/MobileNav";
-
+import Search from "@/app/(public)/components/navbar/Search";
 const Header = () => {
   return (
     <header className='shadow-md'>
@@ -25,6 +25,7 @@ const Header = () => {
           <div className='md:hidden'>
             <MobileNav />
           </div>
+          <div><Search/></div>
         </div>
       </div>
     </header>

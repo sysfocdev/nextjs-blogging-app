@@ -3,6 +3,7 @@ import { useState } from "react";
 import Sidebar from "@/app/(public)/components/home/Sidebar";
 import Image from "next/image";
 import Link from "next/link";
+import MainHeader from "../(public)/components/home/MainHeader";
 
 export default function Page() {
   // Dummy data for cards
@@ -73,9 +74,12 @@ export default function Page() {
 
   const totalPages = Math.ceil(blogPosts.length / cardsPerPage);
 
-  return (
+  return (<>
+  <MainHeader/>
     <section className="flex flex-col md:flex-row justify-between gap-x-6 gap-y-5 mx-4 md:mx-12 my-8">
+
       {/* Blog Cards */}
+    
       <div className="w-full md:w-[68%]">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
           {currentCards.map((post) => (
@@ -154,5 +158,6 @@ export default function Page() {
       {/* Sidebar */}
       <Sidebar />
     </section>
+    </>
   );
 }
