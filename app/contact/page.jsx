@@ -1,8 +1,33 @@
+"use client"
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
 
 export default function ContactSection() {
+  const [name, setName]=useState("")
+  const [email, setEmail]=useState("")
+  const [subject, setSubject]=useState("")
+  const [message, setMessage]=useState("")
+
+
+  const formHandler = (e) =>{
+    e.preventDefault();
+
+  if(!name || !email || !subject || !message){
+    toast.error("Inputs Should Not be Empty");
+  return
+  }
+  setEmail("")
+  setName("")
+  setSubject("")
+  setMessage("")
+  toast.success("Message Has Been Sent")
+  }
+
+
+
   return (
     <>
       <section className="mt-10 px-6 md:px-10 w-full pb-10">
@@ -62,17 +87,21 @@ export default function ContactSection() {
             ></path>
           </svg>
 
-          <form className="mt-6 space-y-4">
+          <form onSubmit={formHandler}  className="mt-6 space-y-4">
             <div className="flex flex-col md:flex-row gap-4">
               <input
                 className="flex-1 px-4 py-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#FE4F70]"
                 type="text"
                 placeholder="Your Name"
+                onChange={(e)=>setName(e.target.value)}
+                value={name}
               />
               <input
                 className="flex-1 px-4 py-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#FE4F70]"
                 type="email"
                 placeholder="Email Address"
+                onChange={(e)=>setEmail(e.target.value)}
+                value={email}
               />
             </div>
 
@@ -80,12 +109,16 @@ export default function ContactSection() {
               className="w-full px-4 py-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#FE4F70]"
               type="text"
               placeholder="Subject"
+              onChange={(e)=>setSubject(e.target.value)}
+                value={subject}
             />
 
             <textarea
               className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FE4F70]"
               placeholder="Your Message Here"
               rows="5"
+              onChange={(e)=>setMessage(e.target.value)}
+                value={message}
             ></textarea>
 
             <button

@@ -22,7 +22,7 @@ export default function Page() {
       return;
     }
     toast.success("Login Successful");
-    router.push("/")
+    router.push("/login")
   };
 
   return (
@@ -65,12 +65,12 @@ export default function Page() {
                 
             />
             </div>
-           <Link href="/">Login with Google</Link>
+           <Link href="https://www.google.com" target="blank">Login with Google</Link>
         </div>
         <div className="flex items-center justify-between mt-3">
           <div className="flex items-center gap-1">
-          <input type="checkbox"  className="accent-accent"/>
-          <label htmlFor="">Remember Me</label>
+          <input type="checkbox"   className="accent-accent"/>
+          <label  htmlFor="">Remember Me</label>
           </div>
           <div>
             <Link href="/" className="text-blue-950 ">Forgot Password</Link>
