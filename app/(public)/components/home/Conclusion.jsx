@@ -5,7 +5,7 @@ import { BsTelegram, BsWhatsapp } from "react-icons/bs";
 export default function Conclusion() {
   return (
     <section className="mt-12">
-      <div className="border border-gray-200/70 rounded-xl">
+      <div className="rounded-xl">
         <div className="w-full flex flex-col md:flex-row items-center justify-between gap-3 h-auto md:h-[350px]">
           <div className="w-full md:w-[50%] h-[200px] md:h-[100%]">
             <Image
@@ -13,7 +13,7 @@ export default function Conclusion() {
               alt="blog-image"
               width={1200}
               height={800}
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full rounded-lg"
             />
           </div>
           <div className="w-full md:w-[50%] h-[200px] md:h-[100%]">
@@ -22,7 +22,7 @@ export default function Conclusion() {
               alt="blog-image"
               width={1200}
               height={800}
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full rounded-lg"
             />
           </div>
         </div>

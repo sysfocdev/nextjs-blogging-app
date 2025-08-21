@@ -40,7 +40,7 @@ export default function Search() {
       <div className="p-4">
         <button
           onClick={() => setOpen(true)}
-          className="p-2 rounded-full hover:bg-gray-200"
+          className="p-2 rounded-full hover:bg-gray-200 cursor-pointer"
         >
           <SearchIcon size={24} />
         </button>
@@ -58,7 +58,7 @@ export default function Search() {
            
             <button
               onClick={() => setOpen(false)}
-              className="absolute right-6 top-6 p-2 rounded-full hover:bg-gray-200"
+              className="absolute right-6 top-6 p-2 rounded-full hover:bg-gray-200 cursor-pointer"
             >
               <X size={28} />
             </button>

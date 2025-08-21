@@ -4,6 +4,8 @@ import Navlinks from "@/app/(public)/components/navbar/Navlinks";
 import Darkmode from "@/app/(public)/components/navbar/Darkmode";
 import MobileNav from "@/app/(public)/components/navbar/MobileNav";
 import Search from "@/app/(public)/components/navbar/Search";
+import { User2Icon } from "lucide-react";
+import Link from "next/link";
 const Header = () => {
   return (
     <header className='shadow-md'>
@@ -26,6 +28,7 @@ const Header = () => {
             <MobileNav />
           </div>
           <div><Search/></div>
+          <div className="p-2 rounded-full hover:bg-gray-200 cursor-pointer"><Link href="/login" alt="Login" ><User2Icon/></Link></div>
         </div>
       </div>
     </header>
