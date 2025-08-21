@@ -2,6 +2,9 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import  Link  from 'next/link';
+import Image from "next/image";
+
 
 export default function Page() {
   const [email, seteEmail] = useState("");
@@ -49,9 +52,30 @@ export default function Page() {
             type="submit"
             className="py-2 cursor-pointer md:py-3 rounded-md bg-gradient-to-r from-[#FE4F70] to-[#FFA387] text-white font-semibold text-base md:text-lg"
           >
+            
             Login
           </button>
         </form>
+        <div className="flex items-center justify-center gap-2 mt-4">
+            
+            <div className="w-10 h-10 rounded-full">
+                <Image src="/google.jpg" width={500}
+                height={500} alt="google"
+                className="w-[100%] h-[100%] object-cover rounded-full"
+                
+            />
+            </div>
+           <Link href="/">Login with Google</Link>
+        </div>
+        <div className="flex items-center justify-between mt-3">
+          <div className="flex items-center gap-1">
+          <input type="checkbox"  className="accent-accent"/>
+          <label htmlFor="">Remember Me</label>
+          </div>
+          <div>
+            <Link href="/" className="text-blue-950 ">Forgot Password</Link>
+          </div>
+        </div>
       </div>
     </section>
   );
