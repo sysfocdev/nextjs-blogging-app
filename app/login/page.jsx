@@ -47,7 +47,7 @@ export default function Page() {
           />
           <button
             type="submit"
-            className="py-2 md:py-3 rounded-md bg-gradient-to-r from-[#FE4F70] to-[#FFA387] text-white font-semibold text-base md:text-lg"
+            className="py-2 cursor-pointer md:py-3 rounded-md bg-gradient-to-r from-[#FE4F70] to-[#FFA387] text-white font-semibold text-base md:text-lg"
           >
             Login
           </button>
