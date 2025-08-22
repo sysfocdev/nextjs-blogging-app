@@ -1,7 +1,9 @@
-import type { Metadata } from "next";
+"use client";
+
+import { usePathname } from "next/navigation";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import {ThemeProvider} from '@/app/(public)/components/ThemeProvider';
+import { ThemeProvider } from "@/app/(public)/components/ThemeProvider";
 import Header from "@/app/(public)/components/Header";
 import Footer from "@/app/(public)/components/Footer";
 import { Toaster } from "react-hot-toast";
@@ -12,34 +14,33 @@ const montserrat = Montserrat({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Next Blogging Application",
-  description: "Getting Started ...",
-};
+export default function RootLayout({ children }) {
+  const pathname = usePathname();
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  // check if current path starts with "/dashboard"
+  const isDashboard = pathname.startsWith("/dashboard");
+
   return (
-    <html lang='en' suppressHydrationWarning>
-      <body className={`${montserrat.className} antialiased max-w-[1680px] mx-auto`}>
-     
-    
-     
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${montserrat.className} antialiased max-w-[1680px] mx-auto`}
+      >
         <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-        <Header />
-        {children}
-        <Footer />
-       <Toaster toastOptions={{
-        duration:2000
-       }}/>
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {!isDashboard && <Header />}
+          {children}
+          {!isDashboard && <Footer />}
+
+          <Toaster
+            reverseOrder={false}
+            toastOptions={{
+              duration: 2000,
+            }}
+          />
         </ThemeProvider>
       </body>
     </html>

@@ -29,7 +29,7 @@ const Header = () => {
             <MobileNav />
           </div>
           <div><Search/></div>
-          <div className="p-2 rounded-lg hover:bg-gray-200 cursor-pointer"><Link  href="/login">Login</Link></div>
+          <div className="p-2 rounded-lg hover:bg-gray-200 cursor-pointer"><Link  href="/login"><User2Icon/></Link></div>
         </div>
       </div>
     </header>

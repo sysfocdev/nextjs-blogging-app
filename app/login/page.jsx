@@ -7,7 +7,7 @@ import Image from "next/image";
 
 
 export default function Page() {
-  const [email, seteEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router= useRouter()
 
@@ -18,9 +18,11 @@ export default function Page() {
       return;
     }
     if (password.length < 8) {
-      toast.error("Password must contain at least 8 characters");
+      toast.error("Password must contain at least 8 characters" );
       return;
     }
+    setEmail("")
+    setPassword("")
     toast.success("Login Successful");
     router.push("/login")
   };
@@ -36,8 +38,8 @@ export default function Page() {
         <form onSubmit={formHandler} className="flex flex-col gap-3">
           <input
             type="email"
-            placeholder="Enter your email"
-            onChange={(e) => seteEmail(e.target.value)}
+            placeholder="E-Mail"
+            onChange={(e) => setEmail(e.target.value)}
             value={email}
             className="w-full px-4 py-3 text-base md:text-lg rounded-lg shadow-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FE4F70] to-[#FFA387]"
           />
@@ -65,7 +67,15 @@ export default function Page() {
                 
             />
             </div>
-           <Link href="https://www.google.com" target="blank">Login with Google</Link>
+           <Link href="https://www.google.com" target="blank">Login with <strong>
+           <span className="text-blue-500">G</span> 
+           <span className="text-red-500">o</span> 
+           <span className="text-yellow-500">o</span> 
+           <span className="text-blue-500">g</span> 
+           <span className="text-green-500">l</span> 
+           <span className="text-red-500">e</span> 
+          
+            </strong></Link>
         </div>
         <div className="flex items-center justify-between mt-3">
           <div className="flex items-center gap-1">
@@ -73,9 +83,12 @@ export default function Page() {
           <label  htmlFor="">Remember Me</label>
           </div>
           <div>
-            <Link href="/" className="text-blue-950 ">Forgot Password</Link>
+            <p ><Link href="/" className="text-blue-950 ">Forgot Password</Link></p>
+            
           </div>
+         
         </div>
+       
       </div>
     </section>
   );
