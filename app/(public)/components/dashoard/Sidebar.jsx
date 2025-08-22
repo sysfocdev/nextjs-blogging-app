@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FileText, Users, Settings } from "lucide-react";
+import { LayoutDashboard, FileText, Users, Settings, ChartBar } from "lucide-react";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -12,6 +12,7 @@ export default function Sidebar() {
     { name: "Dashboard", href: "/dashboard", icon: <LayoutDashboard size={20} /> },
     { name: "Blogs", href: "/dashboard/blogs", icon: <FileText size={20} /> },
     { name: "Users", href: "/dashboard/users", icon: <Users size={20} /> },
+    { name: "Charts", href: "/dashboard/charts", icon: <ChartBar size={20} /> },
     { name: "Settings", href: "/dashboard/users", icon: <Settings size={20} /> },
   ];
 

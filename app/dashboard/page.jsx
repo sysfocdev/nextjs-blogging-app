@@ -1,11 +1,13 @@
 import DashboardNavbar from "../(public)/components/dashoard/DashboardNavbar";
 import DashboardTable from "../(public)/components/dashoard/DashboardTable";
+
 import Sidebar from "../(public)/components/dashoard/Sidebar";
+
 
 // app/(dashboard)/page.jsx
 export default function Page() {
     return (
-        <div className="flex min-h-screen">
+        <div className="flex  min-h-screen">
         {/* Sidebar */}
         <Sidebar />
         
@@ -16,6 +18,8 @@ export default function Page() {
        <div className="mt-10">
        <DashboardTable />
        </div>
+      
+        
         </div>
       </div>
     );
