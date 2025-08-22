@@ -25,7 +25,7 @@ export default function DashboardGrid() {
     {
         title: "All Blogs",
         description: "Manage All Blogs And Update & Delete.",
-        href: "/dashboard/users",
+        href: "/dashboard",
         bg: "bg-gradient-to-r from-[#9bafd9] to-[#103783]",
       },
   ];
