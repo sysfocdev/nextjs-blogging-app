@@ -13,7 +13,7 @@ export default function DashboardGrid() {
     {
       title: "Reach Chart",
       description: "View analytics and performance charts.",
-      href: "/dashboard/reach",
+      href: "/dashboard/charts",
       bg: "bg-gradient-to-r from-green-400 to-blue-500",
     },
     {

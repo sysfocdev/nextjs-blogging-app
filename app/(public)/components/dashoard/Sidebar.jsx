@@ -3,7 +3,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FileText, Users, Settings, ChartBar } from "lucide-react";
+import { LayoutDashboard, FileText, Users, Settings, ChartBar, LogOut } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -13,7 +14,8 @@ export default function Sidebar() {
     { name: "Blogs", href: "/dashboard/blogs", icon: <FileText size={20} /> },
     { name: "Users", href: "/dashboard/users", icon: <Users size={20} /> },
     { name: "Charts", href: "/dashboard/charts", icon: <ChartBar size={20} /> },
-    { name: "Settings", href: "/dashboard/users", icon: <Settings size={20} /> },
+    { name: "Settings", href: "/", icon: <Settings size={20} /> },
+    { name: "Logout", href: "/", icon: <LogOut size={20} /> },
   ];
 
   return (
@@ -24,12 +26,16 @@ export default function Sidebar() {
       <nav className="flex-1 p-4">
         <ul className="space-y-2">
           {menuItems.map((item) => (
+            
+
             <li key={item.name}>
               <Link
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-2 rounded-lg transition 
                   ${pathname === item.href ? "bg-gray-700" : "hover:bg-gray-800"}`}
               >
+               
+
                 {item.icon}
                 <span>{item.name}</span>
               </Link>

@@ -13,7 +13,7 @@ export default function Page() {
         
 
         {/* Main dashboard content */}
-        <div className="flex-1 bg-gray-50">
+        <div className="flex-1 dark:text-white">
         <DashboardNavbar/>
        <div className="mt-10">
        <DashboardTable />

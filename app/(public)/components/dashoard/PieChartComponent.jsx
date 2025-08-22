@@ -32,7 +32,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 
 export default function PieChartComponent() {
   return (
-    <div className="w-full h-[400px]"> {/* container with fixed height */}
+    <div className="w-full h-[400px] "> {/* container with fixed height */}
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
@@ -53,7 +53,7 @@ export default function PieChartComponent() {
             ))}
           </Pie>
         </PieChart>
-        
+
       </ResponsiveContainer>
     </div>
   );

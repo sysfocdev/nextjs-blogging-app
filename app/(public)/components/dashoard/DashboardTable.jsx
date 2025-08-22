@@ -3,10 +3,10 @@ import { SquarePen, Trash2, View } from "lucide-react";
 
 export default function DashboardTable() {
     return (
-        <div className="overflow-x-auto m-5">
+        <div className="overflow-x-auto mx-8 ">
         <table className="table">
           {/* head */}
-          <thead className="bg-[#9377E0] text-white">
+          <thead className="bg-[#9377E0] text-white ">
             <tr>
               <th></th>
               <th>Title</th>
