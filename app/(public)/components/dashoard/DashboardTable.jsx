@@ -6,7 +6,7 @@ export default function DashboardTable() {
         <div className="overflow-x-auto m-5">
         <table className="table">
           {/* head */}
-          <thead className="bg-gray-900 text-white">
+          <thead className="bg-[#9377E0] text-white">
             <tr>
               <th></th>
               <th>Title</th>
@@ -24,9 +24,9 @@ export default function DashboardTable() {
               <td>Nasir Akhtar</td>
               <td>
                 <div className="flex items-center gap-2">
-                <SquarePen color="#EF9B0F"/>
-                <View color="#89CFF0"/>
-                <Trash2 color="red"/>
+                <SquarePen cursor={"pointer"} color="#EF9B0F"/>
+                <View cursor={"pointer"} color="#89CFF0"/>
+                <Trash2 cursor={"pointer"} color="red"/>
                 </div>
               </td>
             </tr>
@@ -38,9 +38,9 @@ export default function DashboardTable() {
               <td>Usman </td>
               <td>
                 <div className="flex items-center gap-2">
-                <SquarePen color="#EF9B0F"/>
-                <View color="#89CFF0"/>
-                <Trash2 color="red"/>
+                <SquarePen cursor={"pointer"} color="#EF9B0F"/>
+                <View  cursor={"pointer"}   color="#89CFF0"/>
+                <Trash2   cursor={"pointer"} color="red"/>
                 </div>
               </td>
             </tr>

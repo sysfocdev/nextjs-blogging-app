@@ -12,7 +12,7 @@ export default function Sidebar() {
     { name: "Dashboard", href: "/dashboard", icon: <LayoutDashboard size={20} /> },
     { name: "Blogs", href: "/dashboard/blogs", icon: <FileText size={20} /> },
     { name: "Users", href: "/dashboard/users", icon: <Users size={20} /> },
-    { name: "Settings", href: "/dashboard/settings", icon: <Settings size={20} /> },
+    { name: "Settings", href: "/dashboard/users", icon: <Settings size={20} /> },
   ];
 
   return (

@@ -7,7 +7,7 @@ export default function DashboardGrid() {
     {
       title: "Create New Blog",
       description: "Add and publish a new blog post.",
-      href: "/dashboard/blogs/new",
+      href: "/dashboard/blogs",
       bg: "bg-gradient-to-r from-indigo-500 to-purple-500",
     },
     {

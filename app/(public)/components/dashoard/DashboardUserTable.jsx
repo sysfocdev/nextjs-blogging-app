@@ -3,7 +3,7 @@ export default function DashboardUserTable() {
     <div className="overflow-x-auto m-5">
       <table className="table">
         {/* head */}
-        <thead className="bg-gray-900 text-white">
+        <thead className="bg-[#9377E0] text-white">
           <tr>
             <th>
               <label></label>
