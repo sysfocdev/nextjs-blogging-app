@@ -1,6 +1,6 @@
 import { Search, LayoutDashboard ,BellPlus, Scan, Settings} from "lucide-react";
 import  Image  from 'next/image';
-import { color } from 'motion';
+
 
 
 export default function DashboardNavbar(){
