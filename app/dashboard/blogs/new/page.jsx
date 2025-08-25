@@ -29,18 +29,7 @@ export default function NewBlogForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await fetch("/api/blogs", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...form,
-          tags: form.tags.split(",").map((tag) => tag.trim()), // convert to array
-        }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to create blog");
+   
       toast.success("Blog created successfully!");
       setForm({
         title: "",
@@ -51,9 +40,7 @@ export default function NewBlogForm() {
         coverImg: "",
         isPublished: false,
       });
-    } catch (err) {
-      alert(err.message);
-    }
+   
   };
 
   return (
