@@ -27,7 +27,7 @@ export default function NewBlogForm() {
    
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
    
       toast.success("Blog created successfully!");
