@@ -47,6 +47,7 @@ export default function Page() {
         </div>
         <div className="max-w-2xl mx-auto p-6 overflow-y-auto  shadow-md border-gray-200  ">
         <h2 className="text-xl font-semibold mb-4">Create New User</h2>
+        
           <form onSubmit={formHandler} className="flex flex-col gap-3">
             <input type="text"
              placeholder="First Name"
