@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FileText, Users, Settings, ChartBar, LogOut } from "lucide-react";
+import { LayoutDashboard, FileText, Users, Settings, ChartBar, LogOut, UserPlus, FilePlus2 } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function Sidebar() {
@@ -12,7 +12,9 @@ export default function Sidebar() {
   const menuItems = [
     { name: "Dashboard", href: "/dashboard", icon: <LayoutDashboard size={20} /> },
     { name: "Blogs", href: "/dashboard/blogs", icon: <FileText size={20} /> },
+    { name: "Add Blog", href: "/dashboard/blogs/new", icon: <FilePlus2 size={20} /> },
     { name: "Users", href: "/dashboard/users", icon: <Users size={20} /> },
+    { name: "Add User", href: "/dashboard/signup", icon: <UserPlus size={20} /> },
     { name: "Charts", href: "/dashboard/charts", icon: <ChartBar size={20} /> },
     { name: "Settings", href: "/", icon: <Settings size={20} /> },
     { name: "Logout", href: "/", icon: <LogOut size={20} /> },

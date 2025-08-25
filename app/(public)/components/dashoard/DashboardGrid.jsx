@@ -7,7 +7,7 @@ export default function DashboardGrid() {
     {
       title: "Create New Blog",
       description: "Add and publish a new blog post.",
-      href: "/dashboard/blogs",
+      href: "/dashboard/blogs/new",
       bg: "bg-gradient-to-r from-indigo-500 to-purple-500",
     },
     {
@@ -23,11 +23,23 @@ export default function DashboardGrid() {
       bg: "bg-gradient-to-r from-pink-500 to-red-500",
     },
     {
+      title: "Add New User",
+      description: "Add New User.",
+      href: "/dashboard/signup",
+      bg: "bg-gradient-to-r from-[#d397fa] to-[#8364e8]",
+    },
+    {
         title: "All Blogs",
         description: "Manage All Blogs And Update & Delete.",
         href: "/dashboard",
         bg: "bg-gradient-to-r from-[#9bafd9] to-[#103783]",
       },
+      {
+        title: "Setting",
+        description: "Manage All Users And Admin Setting.",
+        href: "/dashboard",
+        bg: "bg-gradient-to-r from-[#30c5d2] to-[#471069]",
+      }
   ];
 
   return (
