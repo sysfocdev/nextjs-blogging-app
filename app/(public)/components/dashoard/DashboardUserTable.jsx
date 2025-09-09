@@ -1,5 +1,6 @@
 "use client";
 
+import { EyeIcon, SquarePen, Trash2Icon, View } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function DashboardUserTable() {
@@ -37,11 +38,13 @@ export default function DashboardUserTable() {
         <thead className="bg-[#9377E0] text-white">
           <tr>
             <th></th>
-            <th>First Name</th>
-            <th> Last Name</th>
+            <th>Name</th>
+          
          
             <th>Role</th>
             <th>Verification</th>
+            <th>Actions</th>
+
            
           </tr>
         </thead>
@@ -65,7 +68,7 @@ export default function DashboardUserTable() {
                   </div>
                   <div>
                     <div className="font-bold">{`${user.fName} ${user.lName}`}</div>
-                    <div className="text-sm opacity-50">{user.role}</div>
+                    <div className="text-sm opacity-50">{user.country}</div>
                   </div>
                 </div>
               </td>
@@ -78,9 +81,13 @@ export default function DashboardUserTable() {
               >
                 {user.verified ? "Verified ✔" : "Not-Verified ❌"}
               </td>
-              <th>
-                <button className="btn btn-ghost btn-xs">details</button>
-              </th>
+              <td>
+                <div className="flex items-center gap-2">
+                <SquarePen  cursor={"pointer"} color="#EF9B0F"/>
+                <View       cursor={"pointer"} color="#89CFF0"/>
+                <Trash2Icon     cursor={"pointer"} color="red"/>
+                </div>
+              </td>
             </tr>
           ))}
         </tbody>
