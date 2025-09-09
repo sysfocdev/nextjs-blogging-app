@@ -44,6 +44,7 @@ export default function DashboardUserTable() {
             <th>Role</th>
             <th>Verification</th>
             <th>Actions</th>
+            <th>Created At</th>
 
            
           </tr>
@@ -88,6 +89,9 @@ export default function DashboardUserTable() {
                 <Trash2Icon     cursor={"pointer"} color="red"/>
                 </div>
               </td>
+              <td className="text-sm font-semibold opacity-70">
+  {new Date(user.createdAt).toLocaleDateString()}
+</td>
             </tr>
           ))}
         </tbody>
