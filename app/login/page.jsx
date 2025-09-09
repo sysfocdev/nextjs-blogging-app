@@ -83,7 +83,7 @@ export default function Page() {
           <label  htmlFor="">Remember Me</label>
           </div>
           <div>
-            <p ><Link href="/" className="text-blue-950 ">Forgot Password</Link></p>
+            <p ><Link href="/" className="not-dark:text-blue-950 ">Forgot Password</Link></p>
             
           </div>
          

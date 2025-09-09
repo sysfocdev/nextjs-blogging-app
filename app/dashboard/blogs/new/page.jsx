@@ -92,7 +92,7 @@ export default function NewBlogForm() {
               placeholder="Slug (auto-generated)"
               value={form.slug}
               onChange={handleChange}
-              className="w-full p-2 border rounded bg-gray-50"
+              className="w-full p-2 border rounded "
               required
             />
 

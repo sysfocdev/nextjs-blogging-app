@@ -77,7 +77,7 @@ export default function Sidebar() {
      
       {showLogoutConfirm && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-          <div className="bg-white text-black p-6 rounded-lg shadow-lg w-80">
+          <div className="bg-white text-black p-6 rounded-lg shadow-lg w-[60%]">
             <h2 className="text-lg font-bold mb-4">Confirm Logout</h2>
             <p className="mb-6">Are you sure you want to log out?</p>
             <div className="flex justify-end gap-3">
