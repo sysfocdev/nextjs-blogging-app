@@ -1,79 +1,58 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function DashboardUserTable() {
-  // initial data
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: "Nasir Akhtar",
-      country: "United States",
-      description: "Zemlak, Daniel and Leannon",
-      role: "Admin",
-      verified: true,
-      avatar: "https://img.daisyui.com/images/profile/demo/2@94.webp",
-    },
-    {
-      id: 2,
-      name: "Brice Swyre",
-      country: "China",
-      description: "Carroll Group",
-      role: "User",
-      verified: true,
-      avatar: "https://img.daisyui.com/images/profile/demo/3@94.webp",
-    },
-    {
-      id: 3,
-      name: "Marjy Ferencz",
-      country: "Russia",
-      description: "Rowe-Schoen",
-      role: "User",
-      verified: false,
-      avatar: "https://img.daisyui.com/images/profile/demo/4@94.webp",
-    },
-    {
-      id: 4,
-      name: "Yancy Tear",
-      country: "Brazil",
-      description: "Wyman-Ledner",
-      role: "User",
-      verified: false,
-      avatar: "https://img.daisyui.com/images/profile/demo/5@94.webp",
-    },
-  ]);
+  const [users, setUsers] = useState([]);
 
-  // toggle verification when checkbox is clicked
-  const handleToggle = (id) => {
-    setUsers((prev) =>
-      prev.map((user) =>
-        user.id === id ? { ...user, verified: !user.verified } : user
-      )
-    );
+  // Fetch users from API
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const res = await fetch("/api/users");
+      const data = await res.json();
+      setUsers(data);
+    };
+    fetchUsers();
+  }, []);
+
+  // Toggle verification (update API)
+  const handleToggle = async (id, verified) => {
+    const res = await fetch(`/api/users/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ verified: !verified }),
+    });
+    if (res.ok) {
+      setUsers((prev) =>
+        prev.map((u) =>
+          u._id === id ? { ...u, verified: !u.verified } : u
+        )
+      );
+    }
   };
 
   return (
     <div className="overflow-x-auto mx-8">
       <table className="table">
-        {/* head */}
         <thead className="bg-[#9377E0] text-white">
           <tr>
             <th></th>
-            <th>Name</th>
-            <th>Description</th>
+            <th>First Name</th>
+            <th> Last Name</th>
+         
             <th>Role</th>
             <th>Verification</th>
-            <th>Details</th>
+           
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr key={user.id}>
+            <tr key={user._id}>
               <th>
                 <input
                   type="checkbox"
                   checked={user.verified}
-                  onChange={() => handleToggle(user.id)}
+                  onChange={() => handleToggle(user._id, user.verified)}
                   className="checkbox checkbox-success border border-gray-500"
                 />
               </th>
@@ -81,16 +60,16 @@ export default function DashboardUserTable() {
                 <div className="flex items-center gap-3">
                   <div className="avatar">
                     <div className="mask mask-squircle h-12 w-12">
-                      <img src={user.avatar} alt={user.name} />
+                      <img src={user.profileImg} alt={user.fName} />
                     </div>
                   </div>
                   <div>
-                    <div className="font-bold">{user.name}</div>
-                    <div className="text-sm opacity-50">{user.country}</div>
+                    <div className="font-bold">{`${user.fName} ${user.lName}`}</div>
+                    <div className="text-sm opacity-50">{user.role}</div>
                   </div>
                 </div>
               </td>
-              <td>{user.description}</td>
+             
               <td className="font-semibold">{user.role}</td>
               <td
                 className={`font-semibold ${

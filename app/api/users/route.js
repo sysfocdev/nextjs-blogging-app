@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "@/lib/db";
-import { User } from "@/lib/model/user";
+
+import { User } from "../../../lib/model/User";
+import mongoose from "mongoose";
+import { connectionStr } from "../../../lib/db";
 
 
 // GET all users
 export async function GET() {
   try {
-    await connectDB();
+   await mongoose.connect(connectionStr)
     const users = await User.find();
     return NextResponse.json(users);
   } catch (error) {
@@ -17,7 +19,7 @@ export async function GET() {
 // CREATE new user
 export async function POST(request) {
   try {
-    await connectDB();
+    await mongoose.connect(connectionStr)
     const body = await request.json();
 
     // Check if email already exists
