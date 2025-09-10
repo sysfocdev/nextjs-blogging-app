@@ -43,6 +43,7 @@ export default function DashboardUserTable() {
 
             <th>Role</th>
             <th>Verification</th>
+
             <th>Created At</th>
             <th>Actions</th>
           </tr>
@@ -71,8 +72,9 @@ export default function DashboardUserTable() {
                   </div>
                 </div>
               </td>
+              
 
-              <td className="font-semibold">{user.role}</td>
+              <td className="font-semibold">{user.role.charAt(0).toUpperCase()+ user.role.slice(1) }</td>
               <td
                 className={`font-semibold ${
                   user.verified ? "text-green-500" : "text-red-500"
@@ -91,7 +93,6 @@ export default function DashboardUserTable() {
                   >
                     <SquarePen cursor={"pointer"} color="#EF9B0F" />
                   </button>
-                  <View cursor={"pointer"} color="#89CFF0" />
                   <DeleteUser id={user._id} />
                 </div>
               </td>

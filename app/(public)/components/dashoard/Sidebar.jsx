@@ -27,7 +27,7 @@ export default function Sidebar() {
     { name: "Users", href: "/dashboard/users", icon: <Users size={20} /> },
     { name: "Add User", href: "/dashboard/signup", icon: <UserPlus size={20} /> },
     { name: "Charts", href: "/dashboard/charts", icon: <ChartBar size={20} /> },
-    { name: "Settings", href: "/", icon: <Settings size={20} /> },
+    { name: "Settings", href: "/dashboard", icon: <Settings size={20} /> },
     // Logout will be handled separately
   ];
 
