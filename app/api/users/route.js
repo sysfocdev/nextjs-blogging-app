@@ -9,7 +9,7 @@ import { connectionStr } from "../../../lib/db";
 export async function GET() {
   try {
    await mongoose.connect(connectionStr)
-    const users = await User.find();
+    const users = await User.find().sort({ createdAt: -1 });
     return NextResponse.json(users);
   } catch (error) {
     return NextResponse.json({ message: "Error fetching users", error }, { status: 500 });

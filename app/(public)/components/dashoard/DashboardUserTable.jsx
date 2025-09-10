@@ -2,9 +2,12 @@
 
 import { EyeIcon, SquarePen, Trash2Icon, View } from "lucide-react";
 import { useEffect, useState } from "react";
+import DeleteUser from "../../../../lib/DeleteUser";
+import { useRouter } from "next/navigation";
 
 export default function DashboardUserTable() {
   const [users, setUsers] = useState([]);
+  const router = useRouter();
 
   // Fetch users from API
   useEffect(() => {
@@ -25,9 +28,7 @@ export default function DashboardUserTable() {
     });
     if (res.ok) {
       setUsers((prev) =>
-        prev.map((u) =>
-          u._id === id ? { ...u, verified: !u.verified } : u
-        )
+        prev.map((u) => (u._id === id ? { ...u, verified: !u.verified } : u))
       );
     }
   };
@@ -39,14 +40,11 @@ export default function DashboardUserTable() {
           <tr>
             <th></th>
             <th>Name</th>
-          
-         
+
             <th>Role</th>
             <th>Verification</th>
-            <th>Actions</th>
             <th>Created At</th>
-
-           
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -73,7 +71,7 @@ export default function DashboardUserTable() {
                   </div>
                 </div>
               </td>
-             
+
               <td className="font-semibold">{user.role}</td>
               <td
                 className={`font-semibold ${
@@ -82,16 +80,21 @@ export default function DashboardUserTable() {
               >
                 {user.verified ? "Verified ✔" : "Not-Verified ❌"}
               </td>
+
+              <td className="text-sm font-semibold opacity-70">
+                {new Date(user.createdAt).toLocaleDateString()}
+              </td>
               <td>
                 <div className="flex items-center gap-2">
-                <SquarePen  cursor={"pointer"} color="#EF9B0F"/>
-                <View       cursor={"pointer"} color="#89CFF0"/>
-                <Trash2Icon     cursor={"pointer"} color="red"/>
+                  <button
+                    onClick={() => router.push("/dashboard/users/" + user._id)}
+                  >
+                    <SquarePen cursor={"pointer"} color="#EF9B0F" />
+                  </button>
+                  <View cursor={"pointer"} color="#89CFF0" />
+                  <DeleteUser id={user._id} />
                 </div>
               </td>
-              <td className="text-sm font-semibold opacity-70">
-  {new Date(user.createdAt).toLocaleDateString()}
-</td>
             </tr>
           ))}
         </tbody>
