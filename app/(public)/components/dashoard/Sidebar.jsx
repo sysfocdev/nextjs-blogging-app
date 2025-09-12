@@ -35,6 +35,8 @@ export default function Sidebar() {
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
     localStorage.removeItem("auth"); // agar tum use kar rahe ho
+    localStorage.removeItem("user"); 
+
     router.push("/login");
   }
 
