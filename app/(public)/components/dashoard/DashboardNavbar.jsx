@@ -34,15 +34,7 @@ export default function DashboardNavbar() {
 
         {/* Right Side */}
         <div className="flex items-center gap-5 cursor-pointer">
-          <div className="w-8 h-8 rounded-xl">
-            <Image
-              src="/flag.png"
-              width={100}
-              height={100}
-              alt="flag"
-              className="w-[100%] h-[100%] rounded-xl object-fill cursor-pointer"
-            />
-          </div>
+          
           <LayoutDashboard className="transition-transform duration-700 hover:rotate-[360deg]" />
           <Scan className="transition-transform duration-700 hover:rotate-[360deg]" />
           <BellPlus className="transition-transform duration-700 hover:rotate-[360deg]" />
@@ -51,7 +43,7 @@ export default function DashboardNavbar() {
           {user && (
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full overflow-hidden">
-                <Image
+                <img
                   src={user.profileImg || "/default-avatar.png"}
                   width={1200}
                   height={800}
@@ -60,8 +52,8 @@ export default function DashboardNavbar() {
                 />
               </div>
               <div>
-                <h2 className="font-semibold text-sm">{user.fName}</h2>
-                <p className="text-gray-500 text-sm italic">{user.role}</p>
+                <h2 className="font-semibold text-sm">{user.fName.toUpperCase()}</h2>
+                <p className="text-gray-500 font-semibold text-sm italic">{user.role.charAt(0).toUpperCase() + user.role.slice(1)}</p>
               </div>
             </div>
           )}
