@@ -8,7 +8,7 @@ import { cookies } from "next/headers";  // ✅ import here
 export async function POST(req) {
   try {
     await mongoose.connect(connectionStr);
-    const { email, password } = await req.json();
+    const { email, password ,  } = await req.json();
 
     // find user
     const user = await User.findOne({ email });
@@ -28,6 +28,8 @@ cookieStore.set("auth", JSON.stringify({
   id: user._id,
   email: user.email,
   role: user.role,
+  
+
 }), {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
@@ -39,6 +41,7 @@ cookieStore.set("auth", JSON.stringify({
     return NextResponse.json({
       success: true,
       message: "Login successful",
+      user: { id: user._id, email: user.email, role: user.role, fName: user.fName,  profileImg: user.profileImg },
     });
   } catch (err) {
     return NextResponse.json({ success: false, message: err.message });

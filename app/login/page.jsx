@@ -33,7 +33,7 @@ export default function Page() {
       setCookie("auth", JSON.stringify(data.user), {
         maxAge: 60 * 60 * 24, // 1 din
       });
-
+      localStorage.setItem("user", JSON.stringify(data.user)); 
       toast.success("Login Successful");
       router.push("/dashboard");
     } else {
