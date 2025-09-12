@@ -77,27 +77,28 @@ export default function Sidebar() {
 
      
       {showLogoutConfirm && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-          <div className="bg-white text-black p-6 rounded-lg shadow-lg w-[60%]">
-            <h2 className="text-lg font-bold mb-4">Confirm Logout</h2>
-            <p className="mb-6">Are you sure you want to log out?</p>
-            <div className="flex justify-end gap-3">
-              <button
-                onClick={() => setShowLogoutConfirm(false)}
-                className="px-4 cursor-pointer py-2 rounded bg-gray-300 hover:bg-gray-400"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleLogout}
-                className="px-4 py-2 cursor-pointer rounded bg-red-600 text-white hover:bg-red-700"
-              >
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+  <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-[9999]">
+    <div className="bg-white text-black p-6 rounded-lg shadow-lg w-[60%]">
+      <h2 className="text-lg font-bold mb-4">Confirm Logout</h2>
+      <p className="mb-6">Are you sure you want to log out?</p>
+      <div className="flex justify-end gap-3">
+        <button
+          onClick={() => setShowLogoutConfirm(false)}
+          className="px-4 cursor-pointer py-2 rounded bg-gray-300 hover:bg-gray-400"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={handleLogout}
+          className="px-4 py-2 cursor-pointer rounded bg-red-600 text-white hover:bg-red-700"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </>
   );
 }

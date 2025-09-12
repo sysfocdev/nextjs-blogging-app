@@ -25,56 +25,72 @@ export default function NewBlogForm() {
       [name]: type === "checkbox" ? checked : value,
     };
 
-    
+    // Auto-generate slug from title
     if (name === "title") {
       newForm.slug = value
         .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, "") 
+        .replace(/[^a-z0-9\s-]/g, "")
         .trim()
-        .replace(/\s+/g, "-"); 
+        .replace(/\s+/g, "-");
     }
 
     setForm(newForm);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
   
-    toast.success("Blog created successfully!");
-    setForm({
-      title: "",
-      slug: "",
-      content: "",
-      category: "",
-      tags: "",
-      coverImg: "",
-      isPublished: false,
-    });
+    try {
+      const user = JSON.parse(localStorage.getItem("user")); // 👈 get logged-in user
+      const blogData = { ...form, author: user?.fName || "Unknown" };
+      const res = await fetch("/api/blogs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(blogData),
+      });
+  
+      const data = await res.json();
+  
+      if (data.success) {
+        toast.success("Blog created successfully!");
+        setForm({
+          title: "",
+          slug: "",
+          content: "",
+          category: "",
+          tags: "",
+          coverImg: "",
+          isPublished: false,
+        });
+      } else {
+        toast.error(data.error || "Something went wrong");
+      }
+    } catch (err) {
+      toast.error("Failed to create blog");
+    }
   };
+  
 
   return (
     <div className="flex min-h-screen">
-     
       <Sidebar />
-    
+
       <div className="flex-1">
         <div>
           <DashboardNavbar />
         </div>
 
-      
+        {/* Back button */}
         <div className="mt-5 mx-8 w-fit px-4 py-2 rounded-sm cursor-pointer bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
           <Link href={"/dashboard/blogs"}>
             <ArrowLeft className="transition-transform duration-700 hover:rotate-[360deg]" />
           </Link>
         </div>
 
-       
+        {/* Blog Form */}
         <div className="max-w-2xl mx-auto p-6 overflow-y-auto shadow-md rounded-2xl">
           <h2 className="text-xl font-semibold mb-4">Create New Blog</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
-            
             <input
               type="text"
               name="title"
@@ -85,7 +101,6 @@ export default function NewBlogForm() {
               required
             />
 
-          
             <input
               type="text"
               name="slug"
@@ -96,7 +111,6 @@ export default function NewBlogForm() {
               required
             />
 
-          
             <textarea
               name="content"
               placeholder="Write your blog content..."
@@ -106,7 +120,6 @@ export default function NewBlogForm() {
               required
             />
 
-            
             <div className="flex items-center gap-3">
               <input
                 type="text"
@@ -128,7 +141,6 @@ export default function NewBlogForm() {
               />
             </div>
 
-            
             <input
               type="text"
               name="coverImg"
@@ -138,7 +150,6 @@ export default function NewBlogForm() {
               className="w-full p-2 border rounded"
             />
 
-           
             <label className="flex items-center gap-2">
               <input
                 type="checkbox"
@@ -149,7 +160,6 @@ export default function NewBlogForm() {
               <span>Publish now</span>
             </label>
 
-            
             <button
               type="submit"
               className="w-full py-2 cursor-pointer bg-gradient-to-r from-indigo-500 to-purple-500 text-white"
