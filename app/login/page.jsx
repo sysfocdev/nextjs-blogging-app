@@ -35,7 +35,7 @@ export default function Page() {
       });
       localStorage.setItem("user", JSON.stringify(data.user)); 
       toast.success("Login Successful");
-      router.push("/dashboard");
+      router.push("/dashboard/blogs");
     } else {
       toast.error(data.message);
     }
