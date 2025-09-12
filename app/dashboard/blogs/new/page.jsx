@@ -1,11 +1,26 @@
 "use client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import DashboardNavbar from "../../../(public)/components/dashoard/DashboardNavbar";
 import Sidebar from "../../../(public)/components/dashoard/Sidebar";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import toast from "react-hot-toast";
+import dynamic from "next/dynamic";
 
+
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
+
+// 🟢 Step 2: editorConfig yahan rakho
+const editorConfig = {
+  placeholder: "Start typing your blog...",
+  height: 500,
+  uploader: {
+    insertImageAsBase64URI: true,
+  },
+  askBeforePasteHTML: false,
+  askBeforePasteFromWord: false,
+  processPasteHTML: true,
+};  
 export default function NewBlogForm() {
   const [form, setForm] = useState({
     title: "",
@@ -111,14 +126,18 @@ export default function NewBlogForm() {
               required
             />
 
-            <textarea
-              name="content"
-              placeholder="Write your blog content..."
-              value={form.content}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-              required
-            />
+<div className="border rounded">
+    <Suspense fallback={<p>Loading editor...</p>}>
+      <JoditEditor
+        value={form.content}
+        config={editorConfig}
+        tabIndex={1}
+        onBlur={(newContent) =>
+          setForm({ ...form, content: newContent })
+        }
+      />
+    </Suspense>
+  </div>
 
             <div className="flex items-center gap-3">
               <input
