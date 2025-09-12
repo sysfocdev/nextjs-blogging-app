@@ -34,7 +34,7 @@ export default function Page() {
       setFName(result.fName);
       setLName(result.lName);
       setEmail(result.email);
-      setPassword(result.password);
+     
       setProfileImg(result.profileImg);
       setRole(result.role);
       setCountry(result.country);  
@@ -42,6 +42,10 @@ export default function Page() {
   };
 
   const handleform = async (e) => {
+    if(password.length <8){
+      toast.error("Password Must Contain 8 Characters")
+      return
+    }
     e.preventDefault();
     let res = await fetch(`/api/users/${id}`, {
       method: "PUT",

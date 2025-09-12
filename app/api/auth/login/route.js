@@ -41,7 +41,7 @@ cookieStore.set("auth", JSON.stringify({
     return NextResponse.json({
       success: true,
       message: "Login successful",
-      user: { id: user._id, email: user.email, role: user.role, fName: user.fName,  profileImg: user.profileImg },
+      user: { id: user._id, email: user.email, role: user.role, fName: user.fName,  profileImg: user.profileImg,  },
     });
   } catch (err) {
     return NextResponse.json({ success: false, message: err.message });

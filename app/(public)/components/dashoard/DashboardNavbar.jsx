@@ -34,7 +34,8 @@ export default function DashboardNavbar() {
 
         {/* Right Side */}
         <div className="flex items-center gap-5 cursor-pointer">
-          
+
+
           <LayoutDashboard className="transition-transform duration-700 hover:rotate-[360deg]" />
           <Scan className="transition-transform duration-700 hover:rotate-[360deg]" />
           <BellPlus className="transition-transform duration-700 hover:rotate-[360deg]" />
@@ -42,6 +43,7 @@ export default function DashboardNavbar() {
           {/* ✅ Logged In User Info */}
           {user && (
             <div className="flex items-center gap-2">
+              
               <div className="w-8 h-8 rounded-full overflow-hidden">
                 <img
                   src={user.profileImg || "/default-avatar.png"}
@@ -52,9 +54,14 @@ export default function DashboardNavbar() {
                 />
               </div>
               <div>
-                <h2 className="font-semibold text-sm">{user.fName.toUpperCase()}</h2>
-                <p className="text-gray-500 font-semibold text-sm italic">{user.role.charAt(0).toUpperCase() + user.role.slice(1)}</p>
+                <h2 className="font-semibold text-sm">
+                  {user.fName.toUpperCase()}
+                </h2>
+                <p className="text-gray-500 font-semibold text-sm italic">
+                  {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                </p>
               </div>
+             
             </div>
           )}
 

@@ -22,6 +22,10 @@ export default function Page() {
       toast.error("Inputs are Empty");
       return;
     }
+    if(password.length < 8){
+      toast.error("Password Must Containt 8 Characters");
+      return
+    }
 
     try {
       const res = await fetch("/api/users", {
