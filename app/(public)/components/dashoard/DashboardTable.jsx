@@ -4,17 +4,23 @@ import { SquarePen, Trash2, View } from "lucide-react";
 
 export default function DashboardTable() {
   const [blogs, setBlogs] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    async function fetchBlogs() {
-      const res = await fetch("/api/blogs"); // 👈 GET API
-      const data = await res.json();
-      if (data.success) {
-        setBlogs(data.blogs);
-      }
-    }
-    fetchBlogs();
+    // get logged in user
+    const user = JSON.parse(localStorage.getItem("user"));
+    setCurrentUser(user);
+
+    // fetch blogs
+    fetch("/api/blogs")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setBlogs(data.blogs);
+        }
+      });
   }, []);
+
 
   return (
     <div className="overflow-x-auto mx-8">
@@ -34,7 +40,9 @@ export default function DashboardTable() {
               <th>{index + 1}</th>
               <td>{blog.title}</td>
               <td>{blog.category}</td>
-              <td>{blog.author}</td>
+              <td>
+        {currentUser?.fName === blog.author ? <span className="font-semibold text-gray-200">{blog.author}(You)</span> : blog.author}
+      </td>
               <td>
                 <div className="flex items-center gap-2">
                   <SquarePen cursor="pointer" color="#EF9B0F" />
