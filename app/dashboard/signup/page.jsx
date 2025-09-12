@@ -112,11 +112,11 @@ export default function Page() {
               placeholder="Profile Image URL"
               value={profileImg}
               onChange={(e) => setProfileImg(e.target.value)}
-              className="px-3 py-2 border border-gray-300"
+              className="px-3 py-2 border border-gray-300 "
             />
             
             <select value={country}
-              onChange={(e) => setCountry(e.target.value)}  id="country"  name="country" className="px-3 py-2 border border-gray-300">
+              onChange={(e) => setCountry(e.target.value)}  id="country"  name="country" className="px-3 py-2 dark:bg-black border border-gray-300">
                 <option value="">Select Country</option>
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Åland Islands">Åland Islands</option>
@@ -366,7 +366,7 @@ export default function Page() {
 
             {/* Role */}
             <select
-              className="px-3 py-2 border border-gray-300"
+              className="px-3 py-2 border border-gray-300 dark:bg-black"
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >

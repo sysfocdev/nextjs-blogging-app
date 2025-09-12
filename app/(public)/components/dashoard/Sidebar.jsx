@@ -14,6 +14,7 @@ import {
   FilePlus2,
 } from "lucide-react";
 import toast from "react-hot-toast";
+import { deleteCookie } from "cookies-next";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -31,13 +32,11 @@ export default function Sidebar() {
     // Logout will be handled separately
   ];
 
-  const handleLogout = () => {
-    setShowLogoutConfirm(false);
-
-    
-    toast.success("Logged out successfully!");
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
+    localStorage.removeItem("auth"); // agar tum use kar rahe ho
     router.push("/login");
-  };
+  }
 
   return (
     <>
