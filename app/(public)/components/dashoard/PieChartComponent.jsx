@@ -1,16 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
 
-const data = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
-];
-
-const RADIAN = Math.PI / 180;
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+const RADIAN = Math.PI / 180;
 
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
@@ -31,8 +25,31 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 };
 
 export default function PieChartComponent() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const res = await fetch("/api/users/weekly");
+      const result = await res.json();
+
+      if (result.success) {
+        // convert days (1=Sunday, 2=Monday...) into names
+        const daysMap = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        const formatted = result.data.map((d) => ({
+          name: daysMap[d._id - 1], // because Mongo dayOfWeek starts from 1=Sunday
+          value: d.count,
+        }));
+
+        setData(formatted);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
   return (
-    <div className="w-full h-[400px] "> {/* container with fixed height */}
+    <div className="w-full h-[400px]">
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
@@ -53,7 +70,6 @@ export default function PieChartComponent() {
             ))}
           </Pie>
         </PieChart>
-
       </ResponsiveContainer>
     </div>
   );

@@ -37,7 +37,7 @@ export default function Page() {
       setPassword(result.password);
       setProfileImg(result.profileImg);
       setRole(result.role);
-      setCountry(result.country);   // ✅ fixed setter
+      setCountry(result.country);  
     }
   };
 
