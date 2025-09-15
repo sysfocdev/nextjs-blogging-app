@@ -22,12 +22,7 @@ export default function DashboardGrid() {
       href: "/dashboard/users",
       bg: "bg-gradient-to-r from-pink-500 to-red-500",
     },
-    {
-      title: "Add New User",
-      description: "Add New User.",
-      href: "/dashboard/signup",
-      bg: "bg-gradient-to-r from-[#d397fa] to-[#8364e8]",
-    },
+  
     {
         title: "All Blogs",
         description: "Manage All Blogs And Update & Delete.",
