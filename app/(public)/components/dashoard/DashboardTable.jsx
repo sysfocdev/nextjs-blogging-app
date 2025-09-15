@@ -1,10 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { SquarePen, Trash2, View } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function DashboardTable() {
   const [blogs, setBlogs] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const router= useRouter()
 
   useEffect(() => {
     // get logged in user
@@ -40,12 +42,17 @@ export default function DashboardTable() {
               <th>{index + 1}</th>
               <td>{blog.title}</td>
               <td>{blog.category}</td>
+              <td>{blog.content}</td>
               <td>
-        {currentUser?.fName === blog.author ? <span className="font-semibold text-gray-200">{blog.author}(You)</span> : blog.author}
+        {currentUser?.fName === blog.author ? <span className="font-semibold dark:text-gray-200">{blog.author}(You)</span> : blog.author}
       </td>
               <td>
                 <div className="flex items-center gap-2">
-                  <SquarePen cursor="pointer" color="#EF9B0F" />
+                <button
+                    onClick={() => router.push("/dashboard/blogs/new/" + blog._id)}
+                  >
+                    <SquarePen cursor={"pointer"} color="#EF9B0F" />
+                  </button>
                   <View cursor="pointer" color="#89CFF0" />
                   <Trash2 cursor="pointer" color="red" />
                 </div>
