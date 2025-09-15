@@ -34,6 +34,12 @@ export default function DashboardGrid() {
         href: "/dashboard",
         bg: "bg-gradient-to-r from-[#9bafd9] to-[#103783]",
       },
+      {
+        title: "Categories",
+        description: "Manage All Categories.",
+        href: "/dashboard/category",
+        bg: "bg-gradient-to-r from-[#ffb88e] to-[#ea5753]",
+      },
      
   ];
 

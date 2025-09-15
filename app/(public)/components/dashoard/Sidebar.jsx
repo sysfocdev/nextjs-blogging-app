@@ -12,6 +12,7 @@ import {
   LogOut,
   UserPlus,
   FilePlus2,
+  ChartColumnStacked,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { deleteCookie } from "cookies-next";
@@ -28,6 +29,7 @@ export default function Sidebar() {
     { name: "Users", href: "/dashboard/users", icon: <Users size={20} /> },
     { name: "Add User", href: "/dashboard/signup", icon: <UserPlus size={20} /> },
     { name: "Charts", href: "/dashboard/charts", icon: <ChartBar size={20} /> },
+    { name: "Category", href: "/dashboard/category", icon: <ChartColumnStacked size={20} /> },
     
     // Logout will be handled separately
   ];

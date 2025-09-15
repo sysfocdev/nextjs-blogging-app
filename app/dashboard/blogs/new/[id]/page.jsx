@@ -164,7 +164,7 @@ export default function Page({ params }) {
             </div>
 
             <input
-              type="text"
+              type="file"
               name="coverImg"
               placeholder="Cover Image URL"
               value={form.coverImg}
