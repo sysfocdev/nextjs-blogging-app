@@ -36,3 +36,15 @@ export async function POST(request) {
     );
   }
 }
+
+export async function GET() {
+    try {
+      await mongoose.connect(connectionStr);
+      const categories = await Category.find().sort({ createdAt: -1 });
+  
+      return NextResponse.json({ success: true, categories });
+    } catch (err) {
+      return NextResponse.json({ success: false, error: err.message });
+    }
+  }
+  

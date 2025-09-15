@@ -40,7 +40,7 @@ export default function NewBlogForm() {
         const res = await fetch("/api/categories");
         const data = await res.json();
         if (data.success) {
-          setCategories(data.data);
+          setCategories(data.categories); // 👈 FIXED
         } else {
           console.error("Failed to load categories:", data);
         }
@@ -50,7 +50,7 @@ export default function NewBlogForm() {
     };
     fetchCategories();
   }, []);
-
+  
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -185,9 +185,9 @@ export default function NewBlogForm() {
               >
                 <option value="">-- Select Category --</option>
                 {categories.map((cat) => (
-                  <option key={cat._id} value={cat.categoryName}>
-                    {cat.categoryName}
-                  </option>
+                 <option key={cat._id} value={cat.categoryName}>
+                 {cat.categoryName}
+               </option>
                 ))}
               </select>
 
