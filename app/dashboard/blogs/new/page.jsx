@@ -180,7 +180,7 @@ export default function NewBlogForm() {
                 name="category"
                 value={form.category}
                 onChange={handleChange}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded dark:bg-black"
                 required
               >
                 <option value="">-- Select Category --</option>
