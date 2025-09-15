@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { SquarePen, Trash2, View } from "lucide-react";
 import { useRouter } from "next/navigation";
+import DeleteBlog from "../../../../lib/DeleteBlog";
 
 export default function DashboardTable() {
   const [blogs, setBlogs] = useState([]);
@@ -14,7 +15,7 @@ export default function DashboardTable() {
     setCurrentUser(user);
 
     // fetch blogs
-    fetch("/api/blogs")
+    fetch("/api/blogs",{cache:"no-store"})
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -32,6 +33,7 @@ export default function DashboardTable() {
             <th>#</th>
             <th>Title</th>
             <th>Category</th>
+            <th>Content</th>
             <th>Author</th>
             <th>Actions</th>
           </tr>
@@ -54,7 +56,7 @@ export default function DashboardTable() {
                     <SquarePen cursor={"pointer"} color="#EF9B0F" />
                   </button>
                   <View cursor="pointer" color="#89CFF0" />
-                  <Trash2 cursor="pointer" color="red" />
+                  <DeleteBlog id= {blog._id}/>
                 </div>
               </td>
             </tr>

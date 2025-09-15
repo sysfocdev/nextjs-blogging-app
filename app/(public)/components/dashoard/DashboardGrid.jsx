@@ -34,12 +34,7 @@ export default function DashboardGrid() {
         href: "/dashboard",
         bg: "bg-gradient-to-r from-[#9bafd9] to-[#103783]",
       },
-      {
-        title: "Setting",
-        description: "Manage All Users And Admin Setting.",
-        href: "/dashboard/users",
-        bg: "bg-gradient-to-r from-[#30c5d2] to-[#471069]",
-      }
+     
   ];
 
   return (
