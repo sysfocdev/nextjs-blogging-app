@@ -14,18 +14,22 @@ export async function PUT(request, {params}){
         return NextResponse.json({result, success:true})
 }
 
-export async function GET(request, {params}){
-    const blogId= params.id;
-    const filter = {_id: blogId}
-    await mongoose.connect(connectionStr);
-    const result= await Blog.findOne(filter);
-    return NextResponse.json({result, success: true })
-}
 
-export async function DELETE(request, {params}){
-    const blogId= params.id;
-    const filter= {_id: blogId};
+
+export async function GET(request, ctx) {
+  try {
+    // ✅ unwrap params
+    const { id } = await ctx.params;
+
     await mongoose.connect(connectionStr);
-    const result= await Blog.deleteOne(filter);
-    return NextResponse.json({result, success:true})
+    const result = await Blog.findOne({ _id: id });
+
+    if (!result) {
+      return NextResponse.json({ success: false, message: "Blog not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, result });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  }
 }
