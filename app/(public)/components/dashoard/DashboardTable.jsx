@@ -15,7 +15,7 @@ export default function DashboardTable() {
     setCurrentUser(user);
 
     // fetch blogs
-    fetch("/api/blogs",{cache:"no-store"})
+    fetch("/api/blogs",{cache:"no-cache"})
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -33,7 +33,7 @@ export default function DashboardTable() {
             <th>#</th>
             <th>Title</th>
             <th>Category</th>
-            <th>Content</th>
+          
             <th>Author</th>
             <th>Actions</th>
           </tr>
@@ -44,7 +44,7 @@ export default function DashboardTable() {
               <th>{index + 1}</th>
               <td>{blog.title}</td>
               <td>{blog.category}</td>
-              <td>{blog.content}</td>
+             
               <td>
         {currentUser?.fName === blog.author ? <span className="font-semibold dark:text-gray-200">{blog.author}(You)</span> : blog.author}
       </td>
