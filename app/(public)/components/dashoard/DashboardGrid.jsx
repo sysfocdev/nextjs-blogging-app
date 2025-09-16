@@ -1,15 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function DashboardGrid() {
+  const [userRole, setUserRole]= useState("")
+  useEffect(()=>{
+    const user= JSON.parse(localStorage.getItem("user"));
+    if(user && user.role){
+      setUserRole(user.role)
+    }
+
+  })
   const cards = [
-    {
-      title: "Create New Blog",
-      description: "Add and publish a new blog post.",
-      href: "/dashboard/blogs/new",
-      bg: "bg-gradient-to-r from-indigo-500 to-purple-500",
-    },
+   
     {
       title: "Reach Chart",
       description: "View analytics and performance charts.",
@@ -29,12 +33,7 @@ export default function DashboardGrid() {
         href: "/dashboard",
         bg: "bg-gradient-to-r from-[#9bafd9] to-[#103783]",
       },
-      {
-        title: "Categories",
-        description: "Manage All Categories.",
-        href: "/dashboard/category",
-        bg: "bg-gradient-to-r from-[#ffb88e] to-[#ea5753]",
-      },
+      
     
      
   ];
@@ -51,6 +50,28 @@ export default function DashboardGrid() {
           <p className="text-sm opacity-90">{card.description}</p>
         </Link>
       ))}
+
+      {userRole === "admin" && (
+        <Link href="/dashboard/blogs/new"
+        className="bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl p-6 shadow-lg text-white hover:scale-105 transition-transform cursor-pointer">
+           <h2 className="text-xl font-bold mb-2">Add Blog</h2>
+           <p className="text-sm opacity-90">Add and publish a new blog post</p>
+        </Link>
+      )}
+      {userRole==="admin" && (
+        <Link href="/dashboard/signup"
+        className="bg-gradient-to-r from-[#919bff] to-[#133a94] rounded-2xl p-6 shadow-lg text-white hover:scale-105 transition-transform cursor-pointer">
+           <h2 className="text-xl font-bold mb-2">Add New User</h2>
+           <p className="text-sm opacity-90">Add and Update a New User</p>
+        </Link>
+      )}
+      {userRole==="admin" && (
+        <Link href="/dashboard/category"
+        className="bg-gradient-to-r from-[#ffb88e] to-[#ea5753] rounded-2xl p-6 shadow-lg text-white hover:scale-105 transition-transform cursor-pointer">
+           <h2 className="text-xl font-bold mb-2">Add New Category</h2>
+           <p className="text-sm opacity-90">Add and Update a New Category</p>
+        </Link>
+      )}
     </div>
   );
 }
