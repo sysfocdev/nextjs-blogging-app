@@ -6,7 +6,7 @@ import Sidebar from "../(public)/components/dashoard/Sidebar";
 
 export default function Page() {
   const cookieStore = cookies();
-  const auth = cookieStore.get("auth");
+  const auth = cookieStore.get("auth_token");
 
   if (!auth) {
     redirect("/login");
