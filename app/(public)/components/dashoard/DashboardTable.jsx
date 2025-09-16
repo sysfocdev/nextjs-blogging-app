@@ -7,12 +7,16 @@ import DeleteBlog from "../../../../lib/DeleteBlog";
 export default function DashboardTable() {
   const [blogs, setBlogs] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const [userRole, setUserRole]= useState("")
   const router= useRouter()
 
   useEffect(() => {
     // get logged in user
     const user = JSON.parse(localStorage.getItem("user"));
     setCurrentUser(user);
+    if (user && user.role) {
+      setUserRole(user.role);
+    }
 
     // fetch blogs
     fetch("/api/blogs",{cache:"no-cache"})
@@ -35,7 +39,7 @@ export default function DashboardTable() {
             <th>Category</th>
           
             <th>Author</th>
-            <th>Actions</th>
+            {userRole === "admin" && <th>Actions</th>} 
           </tr>
         </thead>
         <tbody>
@@ -48,17 +52,21 @@ export default function DashboardTable() {
               <td>
         {currentUser?.fName === blog.author ? <span className="font-semibold dark:text-gray-200">{blog.author}(You)</span> : blog.author}
       </td>
-              <td>
-                <div className="flex items-center gap-2">
-                <button
-                    onClick={() => router.push("/dashboard/blogs/new/" + blog._id)}
-                  >
-                    <SquarePen cursor={"pointer"} color="#EF9B0F" />
-                  </button>
-                  <View cursor="pointer" color="#89CFF0" />
-                  <DeleteBlog id= {blog._id}/>
-                </div>
-              </td>
+      {userRole==="admin" && (
+        <td>
+        <div className="flex items-center gap-2">
+        <button
+            onClick={() => router.push("/dashboard/blogs/new/" + blog._id)}
+          >
+            <SquarePen cursor={"pointer"} color="#EF9B0F" />
+          </button>
+          <View cursor="pointer" color="#89CFF0" />
+          <DeleteBlog id= {blog._id}/>
+        </div>
+      </td>
+
+      )}
+              
             </tr>
           ))}
         </tbody>

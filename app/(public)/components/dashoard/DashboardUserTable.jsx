@@ -55,7 +55,7 @@ export default function DashboardUserTable() {
             <th>Role</th>
             <th>Verification</th>
             <th>Created At</th>
-            {userRole === "admin" && <th>Actions</th>} {/* 👈 only admin sees */}
+            {userRole === "admin" && <th>Actions</th>} 
           </tr>
         </thead>
         <tbody>

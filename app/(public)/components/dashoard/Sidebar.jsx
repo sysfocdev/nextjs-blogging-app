@@ -36,7 +36,7 @@ export default function Sidebar() {
     { name: "Add Blog", href: "/dashboard/blogs/new", icon: <FilePlus2 size={20} /> },
     { name: "Users", href: "/dashboard/users", icon: <Users size={20} /> },
     { name: "Charts", href: "/dashboard/charts", icon: <ChartBar size={20} /> },
-    { name: "Category", href: "/dashboard/category", icon: <ChartColumnStacked size={20} /> },
+    
   ];
 
   const handleLogout = async () => {
@@ -77,6 +77,18 @@ export default function Sidebar() {
                 >
                   <UserPlus size={20} />
                   <span>Add User</span>
+                </Link>
+              </li>
+            )}
+             {userRole === "admin" && (
+              <li>
+                <Link
+                  href="/dashboard/categories"
+                  className={`flex items-center gap-3 px-4 py-2 rounded-lg transition 
+                  ${pathname === "/dashboard/signup" ? "bg-gray-700" : "hover:bg-gray-800"}`}
+                >
+                 <ChartColumnStacked size={20} />
+                  <span>Categories</span>
                 </Link>
               </li>
             )}
