@@ -30,7 +30,7 @@ export default function Page() {
 
     if (data.success) {
       // ✅ Cookie set karo
-      setCookie("auth", JSON.stringify(data.user), {
+      setCookie("auth_token", JSON.stringify(data.user), {
         maxAge: 60 * 60 * 24, // 1 din
       });
       localStorage.setItem("user", JSON.stringify(data.user)); 
