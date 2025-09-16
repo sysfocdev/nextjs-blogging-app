@@ -1,8 +1,9 @@
+// ✅ app/dashboard/page.js
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import DashboardNavbar from "../(public)/components/dashoard/DashboardNavbar";
-import DashboardTable from "../(public)/components/dashoard/DashboardTable";
 import Sidebar from "../(public)/components/dashoard/Sidebar";
+import DashboardTable from "../(public)/components/dashoard/DashboardTable";
 
 export default function Page() {
   const cookieStore = cookies();
@@ -16,7 +17,7 @@ export default function Page() {
     <div className="flex h-screen">
       {/* Sidebar fixed */}
       <div className="w-64 h-screen sticky top-0 border-r border-gray-200 dark:border-gray-700">
-        <Sidebar />
+        <Sidebar /> {/* ✅ Sidebar ke andar Logout hai */}
       </div>
 
       {/* Main Content scrollable */}
