@@ -1,15 +1,26 @@
 "use client";
 
-import { EyeIcon, SquarePen, Trash2Icon, View } from "lucide-react";
+import { EyeIcon, SquarePen, Trash2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
 import DeleteUser from "../../../../lib/DeleteUser";
 import { useRouter } from "next/navigation";
 
 export default function DashboardUserTable() {
   const [users, setUsers] = useState([]);
+  const [userRole, setUserRole] = useState(""); // logged-in user role
   const router = useRouter();
 
-  // Fetch users from API
+ 
+ 
+  useEffect(() => {
+    // ✅ Get role from localStorage (or JWT/cookie depending on your auth system)
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && user.role) {
+      setUserRole(user.role);
+    }
+  }, []);
+
+  // Fetch all users
   useEffect(() => {
     const fetchUsers = async () => {
       const res = await fetch("/api/users");
@@ -19,8 +30,9 @@ export default function DashboardUserTable() {
     fetchUsers();
   }, []);
 
-  // Toggle verification (update API)
+  // Toggle verification (admin only)
   const handleToggle = async (id, verified) => {
+    if (userRole !== "admin") return alert("Only admins can verify users!");
     const res = await fetch(`/api/users/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -40,12 +52,10 @@ export default function DashboardUserTable() {
           <tr>
             <th></th>
             <th>Name</th>
-
             <th>Role</th>
             <th>Verification</th>
-
             <th>Created At</th>
-            <th>Actions</th>
+            {userRole === "admin" && <th>Actions</th>} {/* 👈 only admin sees */}
           </tr>
         </thead>
         <tbody>
@@ -56,6 +66,7 @@ export default function DashboardUserTable() {
                   type="checkbox"
                   checked={user.verified}
                   onChange={() => handleToggle(user._id, user.verified)}
+                  disabled={userRole !== "admin"} // 👈 only admin can toggle
                   className="checkbox checkbox-success border border-gray-500"
                 />
               </th>
@@ -72,9 +83,15 @@ export default function DashboardUserTable() {
                   </div>
                 </div>
               </td>
-              
 
-              <td className="font-semibold">{user.role.charAt(0).toUpperCase()+ user.role.slice(1) }</td>
+              <td
+                className={`font-semibold rounded ${
+                  user.role.toLowerCase() === "admin" ? "text-blue-500" : ""
+                }`}
+              >
+                {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+              </td>
+
               <td
                 className={`font-semibold ${
                   user.verified ? "text-green-500" : "text-red-500"
@@ -86,16 +103,19 @@ export default function DashboardUserTable() {
               <td className="text-sm font-semibold opacity-70">
                 {new Date(user.createdAt).toLocaleDateString()}
               </td>
-              <td>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => router.push("/dashboard/users/" + user._id)}
-                  >
-                    <SquarePen cursor={"pointer"} color="#EF9B0F" />
-                  </button>
-                  <DeleteUser id={user._id} />
-                </div>
-              </td>
+
+              {userRole === "admin" && ( // 👈 actions only for admin
+                <td>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => router.push("/dashboard/users/" + user._id)}
+                    >
+                      <SquarePen cursor="pointer" color="#EF9B0F" />
+                    </button>
+                    <DeleteUser id={user._id} />
+                  </div>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
