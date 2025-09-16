@@ -1,17 +1,16 @@
 "use client";
 import { Suspense, useState, useEffect } from "react";
-
+import DashboardNavbar from "../../../../(public)/components/dashoard/DashboardNavbar";
+import Sidebar from "../../../../(public)/components/dashoard/Sidebar";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import toast from "react-hot-toast";
 import dynamic from "next/dynamic";
-import Sidebar from "../../../../(public)/components/dashoard/Sidebar";
-import DashboardNavbar from "../../../../(public)/components/dashoard/DashboardNavbar";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 const editorConfig = {
- 
+  placeholder: "Edit your blog...",
   height: 500,
   uploader: {
     insertImageAsBase64URI: true,
@@ -21,8 +20,9 @@ const editorConfig = {
   processPasteHTML: true,
 };
 
-export default function Page({ params }) {
-    const {id}= params
+export default function EditBlogForm({ params }) {
+  const { id } = params;
+
   const [form, setForm] = useState({
     title: "",
     slug: "",
@@ -33,7 +33,27 @@ export default function Page({ params }) {
     isPublished: false,
   });
 
-  // 🟢 Pre-fill form when editing
+  const [categories, setCategories] = useState([]);
+
+  // 🟢 Fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("/api/categories");
+        const data = await res.json();
+        if (data.success) {
+          setCategories(data.categories);
+        } else {
+          console.error("Failed to load categories:", data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch categories:", err);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  // 🟢 Fetch blog data to pre-fill form
   useEffect(() => {
     const fetchBlog = async () => {
       try {
@@ -66,6 +86,22 @@ export default function Page({ params }) {
     setForm(newForm);
   };
 
+  // 🟢 File input handling (convert to base64)
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setForm((prev) => ({ ...prev, coverImg: reader.result }));
+    };
+    reader.onerror = (err) => {
+      console.error("File read error:", err);
+      toast.error("Failed to read file");
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -74,7 +110,7 @@ export default function Page({ params }) {
       const blogData = { ...form, author: user?.fName || "Unknown" };
 
       const res = await fetch(`/api/blogs/${id}`, {
-        method: "PUT", // 🔄 changed POST → PUT
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(blogData),
       });
@@ -93,19 +129,23 @@ export default function Page({ params }) {
 
   return (
     <div className="flex min-h-screen">
+      {/* Sidebar */}
       <div className="w-64 h-screen sticky top-0 border-r border-gray-200 dark:border-gray-700">
-       <Sidebar/>
+        <Sidebar />
       </div>
 
+      {/* Main */}
       <div className="flex-1">
-        <DashboardNavbar/>
+        <DashboardNavbar />
 
+        {/* Back button */}
         <div className="mt-5 mx-8 w-fit px-4 py-2 rounded-sm cursor-pointer bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
           <Link href={"/dashboard/blogs"}>
             <ArrowLeft className="transition-transform duration-700 hover:rotate-[360deg]" />
           </Link>
         </div>
 
+        {/* Edit Blog Form */}
         <div className="max-w-2xl mx-auto p-6 overflow-y-auto shadow-md rounded-2xl">
           <h2 className="text-xl font-semibold mb-4">Edit Blog</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -125,7 +165,7 @@ export default function Page({ params }) {
               placeholder="Slug (auto-generated)"
               value={form.slug}
               onChange={handleChange}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded "
               required
             />
 
@@ -135,23 +175,26 @@ export default function Page({ params }) {
                   value={form.content}
                   config={editorConfig}
                   tabIndex={1}
-                  onBlur={(newContent) =>
-                    setForm({ ...form, content: newContent })
-                  }
+                  onChange={(newContent) => setForm((p) => ({ ...p, content: newContent }))}
                 />
               </Suspense>
             </div>
 
             <div className="flex items-center gap-3">
-              <input
-                type="text"
+              <select
                 name="category"
-                placeholder="Category"
                 value={form.category}
                 onChange={handleChange}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded dark:bg-black"
                 required
-              />
+              >
+                <option value="">-- Select Category --</option>
+                {categories.map((cat) => (
+                  <option key={cat._id} value={cat.categoryName}>
+                    {cat.categoryName}
+                  </option>
+                ))}
+              </select>
 
               <input
                 type="text"
@@ -163,12 +206,12 @@ export default function Page({ params }) {
               />
             </div>
 
+            {/* File input */}
             <input
               type="file"
               name="coverImg"
-              placeholder="Cover Image URL"
-              value={form.coverImg}
-              onChange={handleChange}
+              accept="image/*"
+              onChange={handleFileChange}
               className="w-full p-2 border rounded"
             />
 
