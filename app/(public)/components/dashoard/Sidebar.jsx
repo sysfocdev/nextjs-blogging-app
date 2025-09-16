@@ -33,7 +33,7 @@ export default function Sidebar() {
   const menuItems = [
     { name: "Dashboard", href: "/dashboard", icon: <LayoutDashboard size={20} /> },
     { name: "Blogs", href: "/dashboard/blogs", icon: <FileText size={20} /> },
-    { name: "Add Blog", href: "/dashboard/blogs/new", icon: <FilePlus2 size={20} /> },
+   
     { name: "Users", href: "/dashboard/users", icon: <Users size={20} /> },
     { name: "Charts", href: "/dashboard/charts", icon: <ChartBar size={20} /> },
     
@@ -66,7 +66,18 @@ export default function Sidebar() {
                 </Link>
               </li>
             ))}
-
+ {userRole === "admin" && (
+              <li>
+                <Link
+                  href="/dashboard/blogs/new"
+                  className={`flex items-center gap-3 px-4 py-2 rounded-lg transition 
+                  ${pathname === "/dashboard/signup" ? "bg-gray-700" : "hover:bg-gray-800"}`}
+                >
+                  <FilePlus2 size={20} />
+                  <span>Add Blog</span>
+                </Link>
+              </li>
+            )}
             {/* ✅ Only Admin can see Add User */}
             {userRole === "admin" && (
               <li>

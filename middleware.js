@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 
 export function middleware(request) {
-  const token = request.cookies.get("auth_token")?.value; // 👈 login ke time set karna hoga
+  const token = request.cookies.get("auth_token")?.value;
 
-  // agar user login nahi hai aur dashboard open kar raha hai
+  
   if (!token && request.nextUrl.pathname.startsWith("/dashboard")) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
@@ -12,5 +12,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"], // dashboard aur uske nested routes protect honge
+  matcher: ["/dashboard/:path*"], 
 };
