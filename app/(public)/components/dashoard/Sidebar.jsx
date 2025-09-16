@@ -41,7 +41,7 @@ export default function Sidebar() {
 
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
-    localStorage.removeItem("auth");
+    localStorage.removeItem("auth_token");
     localStorage.removeItem("user");
     router.push("/login");
   };
@@ -109,7 +109,7 @@ export default function Sidebar() {
 
       {/* Logout confirmation modal */}
       {showLogoutConfirm && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-[100000]">
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-9999">
           <div className="bg-white text-black p-6 rounded-lg shadow-lg w-[60%]">
             <h2 className="text-lg font-bold mb-4">Confirm Logout</h2>
             <p className="mb-6">Are you sure you want to log out?</p>
