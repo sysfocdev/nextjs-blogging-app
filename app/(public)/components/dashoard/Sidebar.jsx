@@ -32,6 +32,7 @@ export default function Sidebar() {
     { name: "Blogs", href: "/dashboard/blogs", icon: <FileText size={20} /> },
     { name: "Users", href: "/dashboard/users", icon: <Users size={20} /> },
     { name: "Charts", href: "/dashboard/charts", icon: <ChartBar size={20} /> },
+    { name: "Categories", href: "/dashboard/showCategories", icon: <ChartBar size={20} /> },
   ];
 
   const handleLogout = async () => {
@@ -92,7 +93,7 @@ export default function Sidebar() {
                   ${pathname === "/dashboard/category" ? "bg-gray-700" : "hover:bg-gray-800"}`}
                 >
                   <ChartColumnStacked size={20} />
-                  <span>Categories</span>
+                  <span>Add Category</span>
                 </Link>
               </li>
             </>

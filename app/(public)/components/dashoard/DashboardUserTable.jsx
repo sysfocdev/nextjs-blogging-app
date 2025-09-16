@@ -50,7 +50,8 @@ export default function DashboardUserTable() {
       <table className="table">
         <thead className="bg-[#9377E0] text-white">
           <tr>
-            <th></th>
+            <th>Sr. No</th>
+            <th>✔</th>
             <th>Name</th>
             <th>Role</th>
             <th>Verification</th>
@@ -59,8 +60,9 @@ export default function DashboardUserTable() {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {users.map((user, index) => (
             <tr key={user._id}>
+              <th>{index+1}</th>
               <th>
                 <input
                   type="checkbox"
