@@ -14,14 +14,9 @@ export default function DashboardGrid() {
   })
   const cards = [
    
+   
     {
-      title: "Reach Chart",
-      description: "View analytics and performance charts.",
-      href: "/dashboard/charts",
-      bg: "bg-gradient-to-r from-green-400 to-blue-500",
-    },
-    {
-      title: "Users",
+      title: "All Users",
       description: "Manage registered and verified users.",
       href: "/dashboard/users",
       bg: "bg-gradient-to-r from-pink-500 to-red-500",
@@ -33,6 +28,12 @@ export default function DashboardGrid() {
         href: "/dashboard",
         bg: "bg-gradient-to-r from-[#9bafd9] to-[#103783]",
       },
+      {
+        title: "Reach Chart",
+        description: "View analytics and performance charts.",
+        href: "/dashboard/charts",
+        bg: "bg-gradient-to-r from-green-400 to-blue-500",
+      },
       
     
      
@@ -40,16 +41,7 @@ export default function DashboardGrid() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
-      {cards.map((card, idx) => (
-        <Link
-          key={idx}
-          href={card.href}
-          className={`${card.bg} rounded-2xl p-6 shadow-lg text-white hover:scale-105 transition-transform cursor-pointer`}
-        >
-          <h2 className="text-xl font-bold mb-2">{card.title}</h2>
-          <p className="text-sm opacity-90">{card.description}</p>
-        </Link>
-      ))}
+      
 
       {userRole === "admin" && (
         <Link href="/dashboard/blogs/new"
@@ -72,6 +64,23 @@ export default function DashboardGrid() {
            <p className="text-sm opacity-90">Manage All Categories, Add, Update & Delete.</p>
         </Link>
       )}
+      {userRole==="admin" && (
+        <Link href="/dashboard/showCategories"
+        className="bg-gradient-to-r from-[#ffb88e] to-[#ea5753] rounded-2xl p-6 shadow-lg text-white hover:scale-105 transition-transform cursor-pointer">
+           <h2 className="text-xl font-bold mb-2">All Categories</h2>
+           <p className="text-sm opacity-90">Manage All Categories, Add, Update & Delete.</p>
+        </Link>
+      )}
+      {cards.map((card, idx) => (
+        <Link
+          key={idx}
+          href={card.href}
+          className={`${card.bg} rounded-2xl p-6 shadow-lg text-white hover:scale-105 transition-transform cursor-pointer`}
+        >
+          <h2 className="text-xl font-bold mb-2">{card.title}</h2>
+          <p className="text-sm opacity-90">{card.description}</p>
+        </Link>
+      ))}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useState } from "react";
 import DashboardNavbar from "../../(public)/components/dashoard/DashboardNavbar";
 import Sidebar from "../../(public)/components/dashoard/Sidebar";
 import toast from "react-hot-toast";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Plus } from "lucide-react";
 import Link from "next/link";
 
 export default function Page() {
@@ -73,10 +73,13 @@ export default function Page() {
         <div>
           <DashboardNavbar />
         </div>
-        <div className="mt-6 mx-8 w-fit px-4 py-2 rounded-sm cursor-pointer bg-gradient-to-r from-[#d397fa] to-[#8364e8] text-white">
-          <Link href={"/dashboard/blogs"}>
+       
+        <div className="mt-6 mx-8 w-[90%] flex items-center justify-between  ">
+          <Link href={"/dashboard/blogs"} className=" bg-gradient-to-r from-[#d397fa] to-[#8364e8] px-4 py-2 rounded-sm cursor-pointer  text-white ">
             <ArrowLeft className="transition-transform duration-700 hover:rotate-[360deg]" />
           </Link>
+
+          
         </div>
         <div className="max-w-2xl mx-auto p-6 overflow-y-auto shadow-md border-gray-200">
           <h2 className="text-xl font-semibold mb-4">Create New User</h2>

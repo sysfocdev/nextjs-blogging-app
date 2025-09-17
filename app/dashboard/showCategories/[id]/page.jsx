@@ -96,7 +96,7 @@ export default function Page() {
       <div className="flex-1">
         <DashboardNavbar />
         <div className="mt-6 mx-8 w-fit px-4 py-2 rounded-sm cursor-pointer bg-gradient-to-r from-[#d397fa] to-[#8364e8] text-white">
-          <Link href={"/dashboard/blogs"}>
+          <Link href={"/dashboard/showCategories"}>
             <ArrowLeft className="transition-transform duration-700 hover:rotate-[360deg]" />
           </Link>
         </div>

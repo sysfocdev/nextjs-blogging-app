@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Plus } from "lucide-react";
 import DashboardNavbar from "../../(public)/components/dashoard/DashboardNavbar";
 import DashboardUserTable from "../../(public)/components/dashoard/DashboardUserTable";
 import Sidebar from "../../(public)/components/dashoard/Sidebar";
@@ -20,9 +20,15 @@ export default function Page() {
         </div>
 
         {/* Back button */}
-        <div className="mt-6 mx-8 w-fit px-4 py-2 rounded-sm cursor-pointer bg-gradient-to-r from-pink-500 to-red-500 text-white">
-          <Link href={"/dashboard/blogs"}>
+        
+        <div className="mt-6 mx-8 w-[90%] flex items-center justify-between  ">
+          <Link href={"/dashboard/blogs"} className="bg-gradient-to-r from-pink-500 to-red-500  px-4 py-2 rounded-sm cursor-pointer  text-white ">
             <ArrowLeft className="transition-transform duration-700 hover:rotate-[360deg]" />
+          </Link>
+
+          <Link href={"/dashboard/signup"} className="flex items-center gap-2 bg-gradient-to-r from-pink-500 to-red-500  px-4 py-2 rounded-sm cursor-pointer  text-white">
+            <Plus className="transition-transform duration-700 hover:rotate-[360deg] " />
+            Add User
           </Link>
         </div>
 

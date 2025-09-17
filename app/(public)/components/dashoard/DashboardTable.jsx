@@ -60,7 +60,7 @@ export default function DashboardTable() {
           >
             <SquarePen cursor={"pointer"} color="#EF9B0F" />
           </button>
-          <View cursor="pointer" color="#89CFF0" />
+        
           <DeleteBlog id= {blog._id}/>
         </div>
       </td>

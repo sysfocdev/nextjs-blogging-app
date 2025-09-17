@@ -28,11 +28,12 @@ export default function Sidebar() {
   }, []);
 
   const menuItems = [
-    { name: "Dashboard", href: "/dashboard", icon: <LayoutDashboard size={20} /> },
-    { name: "Blogs", href: "/dashboard/blogs", icon: <FileText size={20} /> },
+    { name: "Dashboard", href: "/dashboard/blogs", icon: <LayoutDashboard size={20} /> },
+    { name: "Blogs", href: "/dashboard", icon:  <FileText size={20} /> },
+    
     { name: "Users", href: "/dashboard/users", icon: <Users size={20} /> },
     { name: "Charts", href: "/dashboard/charts", icon: <ChartBar size={20} /> },
-    { name: "Categories", href: "/dashboard/showCategories", icon: <ChartBar size={20} /> },
+
   ];
 
   const handleLogout = async () => {
@@ -64,40 +65,7 @@ export default function Sidebar() {
             </li>
           ))}
 
-          {userRole === "admin" && (
-            <>
-              <li>
-                <Link
-                  href="/dashboard/blogs/new"
-                  className={`flex items-center gap-3 px-4 py-2 rounded-lg transition 
-                  ${pathname === "/dashboard/blogs/new" ? "bg-gray-700" : "hover:bg-gray-800"}`}
-                >
-                  <FilePlus2 size={20} />
-                  <span>Add Blog</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/dashboard/signup"
-                  className={`flex items-center gap-3 px-4 py-2 rounded-lg transition 
-                  ${pathname === "/dashboard/signup" ? "bg-gray-700" : "hover:bg-gray-800"}`}
-                >
-                  <UserPlus size={20} />
-                  <span>Add User</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/dashboard/category"
-                  className={`flex items-center gap-3 px-4 py-2 rounded-lg transition 
-                  ${pathname === "/dashboard/category" ? "bg-gray-700" : "hover:bg-gray-800"}`}
-                >
-                  <ChartColumnStacked size={20} />
-                  <span>Add Category</span>
-                </Link>
-              </li>
-            </>
-          )}
+          
 
           {/* ✅ Simple Logout */}
           <li>

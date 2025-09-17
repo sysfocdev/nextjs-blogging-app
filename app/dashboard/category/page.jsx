@@ -4,7 +4,7 @@ import Sidebar from "@/app/(public)/components/dashoard/Sidebar";
 import DashboardNavbar from "@/app/(public)/components/dashoard/DashboardNavbar";
 import toast from "react-hot-toast";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Plus } from "lucide-react";
 
 export default function AddCategoryPage() {
   const [user, setUser] = useState(null);
@@ -65,10 +65,11 @@ export default function AddCategoryPage() {
 
       <div className="flex-1">
         <DashboardNavbar />
-        <div className="mt-6 mx-8 w-fit px-4 py-2 rounded-sm cursor-pointer bg-gradient-to-r from-[#d397fa] to-[#8364e8] text-white">
-          <Link href={"/dashboard/blogs"}>
+        <div className="mt-6 mx-8 w-[80%] flex items-center justify-between  ">
+          <Link href={"/dashboard/blogs"} className="bg-gradient-to-r from-[#d397fa] to-[#8364e8] px-4 py-2 rounded-sm cursor-pointer  text-white ">
             <ArrowLeft className="transition-transform duration-700 hover:rotate-[360deg]" />
           </Link>
+
         </div>
 
         {/* ✅ Only show if user is admin */}
