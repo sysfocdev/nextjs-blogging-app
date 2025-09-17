@@ -74,7 +74,7 @@ export default function Page() {
       const data = await res.json();
       if (data.success) {
         toast.success("Category updated successfully!");
-        router.push("/dashboard/blogs"); // ✅ redirect after update
+        router.push("/dashboard/showCategories"); // ✅ redirect after update
       } else {
         toast.error(data.error || "Failed to update category");
       }

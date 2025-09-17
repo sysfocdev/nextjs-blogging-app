@@ -44,7 +44,7 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="h-screen w-64 bg-[#111C43] text-white flex flex-col">
+    <aside className="h-screen w-64 bg-[#011F5B] text-white flex flex-col">
       <div className="p-4 text-2xl font-bold border-b border-gray-700">
         Blog Admin
       </div>

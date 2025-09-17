@@ -27,7 +27,7 @@ export default function Loading() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
         >
-          Need Your Patience
+          Loading
         </motion.span>
       </motion.div>
 
