@@ -10,9 +10,7 @@ import {
   Users,
   ChartBar,
   LogOut,
-  UserPlus,
-  FilePlus2,
-  ChartColumnStacked,
+  FileSpreadsheet
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -63,7 +61,21 @@ export default function Sidebar() {
                 <span>{item.name}</span>
               </Link>
             </li>
+
+            
           ))}
+          {userRole ==="admin" &&(
+            <li >
+            <Link
+              href={"dashboard/showCategories"}
+              className={`flex items-center gap-3 px-4 py-2 rounded-lg transition 
+              ${pathname === "dashboard/showCategories" ? "bg-gray-700" : "hover:bg-gray-800"}`}
+            >
+              <FileSpreadsheet size={20} />
+              <span>Categories</span>
+            </Link>
+          </li>
+          )}
 
           
 
