@@ -119,6 +119,7 @@ export default function EditBlogForm({ params }) {
 
       if (data.success) {
         toast.success("Blog updated successfully!");
+        router.push("/dashboard")
       } else {
         toast.error(data.error || "Update failed");
       }

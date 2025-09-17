@@ -33,3 +33,31 @@ export async function GET(request, ctx) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }
 }
+
+export async function DELETE(request, { params }) {
+  try {
+    const blogId = params.id; // ✅ correct
+    await mongoose.connect(connectionStr);
+
+    const result = await Blog.findOneAndDelete({ _id: blogId }); // ✅ filter only
+
+    if (!result) {
+      return NextResponse.json(
+        { success: false, message: "Blog not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: "Blog deleted successfully",
+      result,
+    });
+  } catch (error) {
+    console.error("Delete category error:", error);
+    return NextResponse.json(
+      { success: false, message: "Failed to delete category", error: error.message },
+      { status: 500 }
+    );
+  }
+}
