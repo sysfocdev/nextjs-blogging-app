@@ -3,6 +3,7 @@
 import { SquarePen } from "lucide-react";
 import { useEffect, useState } from "react";
 import DeleteCategory from "../../../../lib/DeleteCategory";
+import {useRouter}  from "next/navigation";
 
 
 export default function ShowCategories(){
@@ -10,10 +11,11 @@ export default function ShowCategories(){
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [userRole , setUserRole]= useState("")
+    const router = useRouter()
 
   
     useEffect(()=>{
-        const user= JSON.parse(localStorage.getItem("user"))
+        const user = JSON.parse(localStorage.getItem("user"))
         if(user && user.role){
             setUserRole(user.role)
         }
@@ -22,7 +24,9 @@ export default function ShowCategories(){
         
       const fetchCategories = async () => {
         try {
-          let res = await fetch("/api/categories");
+          let res = await fetch("/api/categories", {
+            cache:"no-cache"
+          });
           let data = await res.json();
   
           if (data.success) {
@@ -67,7 +71,7 @@ export default function ShowCategories(){
                 <td>
                   <div className="flex items-center gap-2">
                     <button
-                      onClick={() => router.push("/dashboard/showCategories" + user._id)}
+                      onClick={() => router.push("/dashboard/showCategories/" + cat._id)}
                     >
                       <SquarePen cursor="pointer" color="#EF9B0F" />
                       

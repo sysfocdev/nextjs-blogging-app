@@ -1,12 +1,14 @@
 "use client";
+
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Sidebar from "@/app/(public)/components/dashoard/Sidebar";
 import DashboardNavbar from "@/app/(public)/components/dashoard/DashboardNavbar";
-import toast from "react-hot-toast";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import Sidebar from "@/app/(public)/components/dashoard/Sidebar";
+import toast from "react-hot-toast";
 
-export default function AddCategoryPage() {
+export default function Page() {
   const [user, setUser] = useState(null);
   const [form, setForm] = useState({
     categoryName: "",
@@ -14,7 +16,12 @@ export default function AddCategoryPage() {
     metaDescription: "",
     h1Title: "",
   });
+  const [loading, setLoading] = useState(true);
 
+  const params = useParams(); // ✅ get id from URL
+  const router = useRouter();
+
+  // ✅ Load user from localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -22,38 +29,61 @@ export default function AddCategoryPage() {
     }
   }, []);
 
+  // ✅ Fetch category details by ID
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const res = await fetch(`/api/categories/${params.id}`);
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          setForm({
+            categoryName: data.category.categoryName,
+            metaTitle: data.category.metaTitle,
+            metaDescription: data.category.metaDescription,
+            h1Title: data.category.h1Title,
+          });
+        } else {
+          toast.error(data.error || "Failed to fetch category");
+        }
+      } catch (err) {
+        toast.error("Something went wrong while fetching category");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (params.id) fetchCategory();
+  }, [params.id]);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // ✅ Update category
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await fetch("/api/categories", {
-        method: "POST",
+      const res = await fetch(`/api/categories/${params.id}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, user }), // 👈 send logged-in user too
+        body: JSON.stringify({ ...form, user }), // 👈 also send user info
       });
 
       const data = await res.json();
       if (data.success) {
-        toast.success("Category added successfully!");
-        setForm({
-          categoryName: "",
-          metaTitle: "",
-          metaDescription: "",
-          h1Title: "",
-        });
+        toast.success("Category updated successfully!");
+        router.push("/dashboard/blogs"); // ✅ redirect after update
       } else {
-        toast.error(data.error || "Failed to add category");
+        toast.error(data.error || "Failed to update category");
       }
     } catch (err) {
       toast.error("Something went wrong");
     }
   };
 
-  if (!user) {
+  if (!user || loading) {
     return <p className="text-center mt-10">Loading...</p>;
   }
 
@@ -71,10 +101,9 @@ export default function AddCategoryPage() {
           </Link>
         </div>
 
-        {/* ✅ Only show if user is admin */}
         {user.role === "admin" ? (
           <div className="max-w-2xl mx-auto p-6 overflow-y-auto shadow-md rounded-2xl mt-10">
-            <h2 className="text-xl font-semibold mb-4">Add New Category</h2>
+            <h2 className="text-xl font-semibold mb-4">Update Category</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <input
                 type="text"
@@ -116,13 +145,13 @@ export default function AddCategoryPage() {
                 type="submit"
                 className="w-full py-2 cursor-pointer bg-gradient-to-r from-indigo-500 to-purple-500 text-white"
               >
-                Add Category
+                Update Category
               </button>
             </form>
           </div>
         ) : (
           <p className="text-red-500 text-center mt-10 font-semibold">
-            🚫 You are not authorized to add categories.
+            🚫 You are not authorized to update categories.
           </p>
         )}
       </div>

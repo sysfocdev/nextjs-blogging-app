@@ -49,8 +49,8 @@ export default function DashboardTable() {
               <td>{blog.title}</td>
               <td>{blog.category}</td>
              
-              <td>
-        {currentUser?.fName === blog.author ? <span className="font-semibold dark:text-gray-200">{blog.author}(You)</span> : blog.author}
+              <td >
+        {currentUser?.fName === blog.author ? <span className="font-semibold text-[#00009C] dark:text-gray-200">{blog.author}(You)</span> : blog.author}
       </td>
       {userRole==="admin" && (
         <td>

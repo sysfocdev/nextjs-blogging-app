@@ -9,7 +9,7 @@ export default function DashboardUserTable() {
   const [users, setUsers] = useState([]);
   const [userRole, setUserRole] = useState(""); // logged-in user role
   const router = useRouter();
-
+  const [loading, setLoading] = useState(true);
  
  
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function DashboardUserTable() {
       );
     }
   };
-
+  
   return (
     <div className="overflow-x-auto mx-8">
       <table className="table">

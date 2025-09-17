@@ -30,3 +30,39 @@ export async function DELETE(request, { params }) {
     );
   }
 }
+export async function PUT(request, {params}){
+   
+  const catId= params.id;
+  const filter= {_id:catId};
+const  payload= await request.json()
+  await mongoose.connect(connectionStr)
+  const result= await Category.findOneAndUpdate(filter, payload)
+  return NextResponse.json({result, success:true})
+}
+
+export async function GET(request, { params }) {
+  try {
+    const catId = params.id;
+
+    // connect DB
+    await mongoose.connect(connectionStr);
+
+    // fetch category
+    const result = await Category.findById(catId);
+
+    if (!result) {
+      return NextResponse.json(
+        { success: false, error: "Category not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({ success: true, category: result });
+  } catch (error) {
+    console.error("GET /categories/[id] error:", error);
+    return NextResponse.json(
+      { success: false, error: "Server error while fetching category" },
+      { status: 500 }
+    );
+  }
+}
