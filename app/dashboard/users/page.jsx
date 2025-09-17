@@ -1,10 +1,20 @@
+"use client"
 import { ArrowLeft, Plus } from "lucide-react";
 import DashboardNavbar from "../../(public)/components/dashoard/DashboardNavbar";
 import DashboardUserTable from "../../(public)/components/dashoard/DashboardUserTable";
 import Sidebar from "../../(public)/components/dashoard/Sidebar";
 import Link from "next/link";
+import { useState , useEffect} from "react";
 
 export default function Page() {
+const [userRole, setUserRole]= useState("");
+
+  useEffect(()=>{
+    const user= JSON.parse(localStorage.getItem("user"))
+    if(user && user.role){
+      setUserRole(user.role)
+    }
+  })
   return (
     <div className="flex h-screen">
       {/* Sidebar fixed */}
@@ -26,10 +36,12 @@ export default function Page() {
             <ArrowLeft className="transition-transform duration-700 hover:rotate-[360deg]" />
           </Link>
 
-          <Link href={"/dashboard/signup"} className="flex items-center gap-2 bg-gradient-to-r from-pink-500 to-red-500  px-4 py-2 rounded-sm cursor-pointer  text-white">
-            <Plus className="transition-transform duration-700 hover:rotate-[360deg] " />
-            Add User
-          </Link>
+         {userRole==="admin" && (
+           <Link href={"/dashboard/signup"} className="flex items-center gap-2 bg-gradient-to-r from-pink-500 to-red-500  px-4 py-2 rounded-sm cursor-pointer  text-white">
+           <Plus className="transition-transform duration-700 hover:rotate-[360deg] " />
+           Add User
+         </Link>
+         )}
         </div>
 
         {/* User Table - scrollable area */}

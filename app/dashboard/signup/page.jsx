@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DashboardNavbar from "../../(public)/components/dashoard/DashboardNavbar";
 import Sidebar from "../../(public)/components/dashoard/Sidebar";
 import toast from "react-hot-toast";
@@ -14,7 +14,9 @@ export default function Page() {
   const [profileImg, setProfileImg] = useState("");
   const [role, setRole] = useState("");
   const [country, setCountry] = useState("");
+  const [userRole, setUserRoll]= useState("")
 
+  
   const formHandler = async (e) => {
     e.preventDefault();
 
@@ -78,7 +80,7 @@ export default function Page() {
           <Link href={"/dashboard/blogs"} className=" bg-gradient-to-r from-[#d397fa] to-[#8364e8] px-4 py-2 rounded-sm cursor-pointer  text-white ">
             <ArrowLeft className="transition-transform duration-700 hover:rotate-[360deg]" />
           </Link>
-
+    
           
         </div>
         <div className="max-w-2xl mx-auto p-6 overflow-y-auto shadow-md border-gray-200">

@@ -1,4 +1,5 @@
 // ✅ app/dashboard/page.js
+
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import DashboardNavbar from "../(public)/components/dashoard/DashboardNavbar";
@@ -7,13 +8,18 @@ import DashboardTable from "../(public)/components/dashoard/DashboardTable";
 import Link from "next/link";
 import { ArrowLeft, Plus } from "lucide-react";
 
+
 export default function Page() {
   const cookieStore = cookies();
   const auth = cookieStore.get("auth_token");
 
+
+  
   if (!auth) {
     redirect("/login");
   }
+
+
 
   return (
     <div className="flex h-screen">
@@ -32,11 +38,7 @@ export default function Page() {
           <Link href={"/dashboard/blogs"} className="bg-gradient-to-r from-pink-500 to-red-500  px-4 py-2 rounded-sm cursor-pointer  text-white ">
             <ArrowLeft className="transition-transform duration-700 hover:rotate-[360deg]" />
           </Link>
-
-          <Link href={"/dashboard/blogs/new"} className="flex items-center gap-2 bg-gradient-to-r from-pink-500 to-red-500  px-4 py-2 rounded-sm cursor-pointer  text-white">
-            <Plus className="transition-transform duration-700 hover:rotate-[360deg] " />
-            Add blog
-          </Link>
+      
         </div>
 
         {/* Page content */}

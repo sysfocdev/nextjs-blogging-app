@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import DashboardNavbar from "../../(public)/components/dashoard/DashboardNavbar";
 import Sidebar from "../../(public)/components/dashoard/Sidebar";
@@ -5,7 +6,12 @@ import { ArrowLeft, Plus } from "lucide-react";
 import ShowCategories from "../../(public)/components/dashoard/ShowCategories";
 
 
+
 export default function Page() {
+
+
+
+
   return (
     <div className="flex h-screen">
       {/* Sidebar fixed */}
@@ -26,10 +32,12 @@ export default function Page() {
             <ArrowLeft className="transition-transform duration-700 hover:rotate-[360deg]" />
           </Link>
 
-          <Link href={"/dashboard/category"} className="flex items-center gap-2 bg-gradient-to-r from-[#d397fa] to-[#8364e8] px-4 py-2 rounded-sm cursor-pointer  text-white">
+         
+            <Link href={"/dashboard/category"} className="flex items-center gap-2 bg-gradient-to-r from-[#d397fa] to-[#8364e8] px-4 py-2 rounded-sm cursor-pointer  text-white">
             <Plus className="transition-transform duration-700 hover:rotate-[360deg] " />
             Add Category
           </Link>
+        
         </div>
 
         {/* User Table - scrollable area */}
