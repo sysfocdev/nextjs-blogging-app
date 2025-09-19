@@ -26,30 +26,50 @@ export default function NewBlogForm() {
     slug: "",
     content: "",
     category: "",
+    subcategory:"",
     tags: "",
     coverImg: "",
     isPublished: false,
   });
 
-  const [categories, setCategories] = useState([]);
+  
 
   // fetch categories on mount (NOT inside handleSubmit)
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await fetch("/api/categories");
-        const data = await res.json();
-        if (data.success) {
-          setCategories(data.categories); // 👈 FIXED
-        } else {
-          console.error("Failed to load categories:", data);
-        }
-      } catch (err) {
-        console.error("Failed to fetch categories:", err);
+  const [categories, setCategories] = useState([]);
+const [subCategories, setSubCategories] = useState([]);
+
+// fetch categories
+useEffect(() => {
+  const fetchCategories = async () => {
+    const res = await fetch("/api/categories");
+    const data = await res.json();
+    if (data.success) setCategories(data.categories);
+  };
+  fetchCategories();
+}, []);
+
+// fetch subcategories
+useEffect(() => {
+  const fetchSubCategories = async () => {
+    try {
+      const res = await fetch("/api/subCategories");
+      const data = await res.json();
+
+      // ✅ safe check
+      if (data.success && Array.isArray(data.subcategories)) {
+        setSubCategories(data.subcategories);
+      } else {
+        setSubCategories([]); // agar data galat aya to empty
       }
-    };
-    fetchCategories();
-  }, []);
+    } catch (err) {
+      console.error("Failed to fetch subcategories:", err);
+      setSubCategories([]);
+    }
+  };
+
+  fetchSubCategories();
+}, []);
+
   
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -109,6 +129,7 @@ export default function NewBlogForm() {
           slug: "",
           content: "",
           category: "",
+          subcategory: "",
           tags: "",
           coverImg: "",
           isPublished: false,
@@ -175,23 +196,47 @@ export default function NewBlogForm() {
               </Suspense>
             </div>
 
+         
             <div className="flex items-center gap-3">
-              <select
-                name="category"
-                value={form.category}
-                onChange={handleChange}
-                className="w-full p-2 border rounded dark:bg-black"
-                required
-              >
-                <option value="">-- Select Category --</option>
-                {categories.map((cat) => (
-                 <option key={cat._id} value={cat.categoryName}>
-                 {cat.categoryName}
-               </option>
-                ))}
-              </select>
+  {/* Category Dropdown */}
+  <select
+    name="category"
+    value={form.category}
+    onChange={handleChange}
+    className="w-full p-2 border rounded dark:bg-black"
+    required
+  >
+    <option value="">-- Select Category --</option>
+    {categories.map((cat) => (
+      <option key={cat._id} value={cat._id}>
+        {cat.categoryName}
+      </option>
+    ))}
+  </select>
 
-              <input
+  {/* SubCategory Dropdown */}
+  <select
+  name="subcategory"
+  value={form.subcategory || ""}
+  onChange={handleChange}
+  className="w-full p-2 border rounded dark:bg-black"
+  disabled={!form.category}
+  required
+>
+  <option value="">-- Select SubCategory --</option>
+  {subCategories.filter((sub) => sub.parent?._id === form.category) // 👈 ab parent object ka _id compare hoga
+  .map((sub) => (
+    <option key={sub._id} value={sub._id}>
+      {sub.categoryName}
+    </option>
+  ))}
+</select>
+</div>
+
+
+             
+         
+            <input
                 type="text"
                 name="tags"
                 placeholder="Tags (comma separated)"
@@ -199,7 +244,6 @@ export default function NewBlogForm() {
                 onChange={handleChange}
                 className="w-full p-2 border rounded"
               />
-            </div>
 
             {/* file input: DO NOT set value for file inputs */}
             <input

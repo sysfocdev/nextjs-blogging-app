@@ -6,8 +6,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
   try {
-
-    await mongoose.connect(connectionStr)
+    await mongoose.connect(connectionStr);
 
     const body = await request.json();
 
@@ -22,6 +21,7 @@ export async function POST(request) {
       slug: body.slug,
       content: body.content,
       category: body.category,
+      subcategory: body.subcategory && body.subcategory !== "" ? body.subcategory : null, // 👈 fix   // 👈 add this
       tags: tagsArray,
       coverImg: body.coverImg,
       isPublished: body.isPublished,
@@ -35,6 +35,7 @@ export async function POST(request) {
     return NextResponse.json({ success: false, error: error.message });
   }
 }
+
 export async function GET() {
     try {
       await mongoose.connect(connectionStr);

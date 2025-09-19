@@ -84,7 +84,7 @@ export default function Sidebar() {
               ${pathname === "dashboard/showCategories" ? "bg-gray-700" : "hover:bg-gray-800"}`}
             >
               <FileSpreadsheet size={20} />
-              <span>SubCategories</span>
+              <span>Add Subcategory</span>
             </Link>
           </li>
           )}
