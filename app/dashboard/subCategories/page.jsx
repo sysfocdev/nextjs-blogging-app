@@ -89,7 +89,7 @@ useEffect(() => {
         <DashboardNavbar />
         <div className="mt-6 mx-8 w-[80%] flex items-center justify-between">
           <Link
-            href={"/dashboard/categories"}
+            href={"/dashboard/blogs"}
             className="bg-gradient-to-r from-[#d397fa] to-[#8364e8] px-4 py-2 rounded-sm cursor-pointer text-white"
           >
             <ArrowLeft className="transition-transform duration-700 hover:rotate-[360deg]" />

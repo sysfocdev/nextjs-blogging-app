@@ -47,7 +47,8 @@ export default function DashboardTable() {
             <tr key={blog._id}>
               <th>{index + 1}</th>
               <td>{blog.title}</td>
-              <td>{blog.category}</td>
+              <td>{blog.category?.categoryName || "No Category"}</td>
+              <td>{blog.subcategory?.categoryName || "—"}</td>
              
               <td >
         {currentUser?.fName === blog.author ? <span className="font-semibold text-[#00009C] dark:text-gray-200">{blog.author}(You)</span> : blog.author}
