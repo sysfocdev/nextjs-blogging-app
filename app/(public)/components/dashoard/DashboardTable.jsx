@@ -1,14 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
-import { SquarePen, Trash2, View } from "lucide-react";
+import { SquarePen } from "lucide-react";
 import { useRouter } from "next/navigation";
 import DeleteBlog from "../../../../lib/DeleteBlog";
 
 export default function DashboardTable() {
   const [blogs, setBlogs] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
-  const [userRole, setUserRole]= useState("")
-  const router= useRouter()
+  const [userRole, setUserRole] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     // get logged in user
@@ -19,7 +19,7 @@ export default function DashboardTable() {
     }
 
     // fetch blogs
-    fetch("/api/blogs",{cache:"no-cache"})
+    fetch("/api/blogs", { cache: "no-cache" })
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -28,50 +28,111 @@ export default function DashboardTable() {
       });
   }, []);
 
-
   return (
-    <div className="overflow-x-auto mx-8">
-      <table className="table">
-        <thead className="bg-[#9377E0] text-white">
-          <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Category</th>
-          
-            <th>Author</th>
-            {userRole === "admin" && <th>Actions</th>} 
-          </tr>
-        </thead>
-        <tbody>
-          {blogs.map((blog, index) => (
-            <tr key={blog._id}>
-              <th>{index + 1}</th>
-              <td>{blog.title}</td>
-              <td>{blog.category?.categoryName || "No Category"}</td>
-              <td>{blog.subcategory?.categoryName || "—"}</td>
-             
-              <td >
-        {currentUser?.fName === blog.author ? <span className="font-semibold text-[#00009C] dark:text-gray-200">{blog.author}(You)</span> : blog.author}
-      </td>
-      {userRole==="admin" && (
-        <td>
-        <div className="flex items-center gap-2">
-        <button
-            onClick={() => router.push("/dashboard/blogs/new/" + blog._id)}
-          >
-            <SquarePen cursor={"pointer"} color="#EF9B0F" />
-          </button>
-        
-          <DeleteBlog id= {blog._id}/>
-        </div>
-      </td>
+    // <div className="overflow-x-auto mx-8">
+    //   <table className="table">
+    //     <thead className="bg-[#9377E0] text-white">
+    //       <tr>
+    //         <th>#</th>
+    //         <th>Title</th>
+    //         <th>Category</th>
+    //         <th>Subcategory</th>
+    //         <th>Author</th>
+    //         {userRole === "admin" && <th>Actions</th>}
+    //       </tr>
+    //     </thead>
+    //     <tbody>
+    //       {blogs.map((blog, index) => (
+    //         <tr key={blog._id}>
+    //           <th>{index + 1}</th>
+    //           <td>{blog.title}</td>
+    //           {/* 👇 Purana style — sirf IDs show karega */}
+    //           <td>{blog.category}</td>
 
-      )}
+    //           <td>
+    //             {currentUser?.fName === blog.author ? (
+    //               <span className="font-semibold text-[#00009C] dark:text-gray-200">
+    //                 {blog.author} (You)
+    //               </span>
+    //             ) : (
+    //               blog.author
+    //             )}
+    //           </td>
+
+    //           {userRole === "admin" && (
+    //             <td>
+    //               <div className="flex items-center gap-2">
+    //                 <button
+    //                   onClick={() =>
+    //                     router.push("/dashboard/blogs/new/" + blog._id)
+    //                   }
+    //                 >
+    //                   <SquarePen cursor={"pointer"} color="#EF9B0F" />
+    //                 </button>
+    //                 <DeleteBlog id={blog._id} />
+    //               </div>
+    //             </td>
+    //           )}
+    //         </tr>
+    //       ))}
+    //     </tbody>
+    //   </table>
+    // </div>
+    <div className="max-w-4xl mx-auto p-6 dark:bg-black shadow rounded">
+    <h2 className="text-xl font-bold mb-4">All Blogs</h2>
+  
+    <table className="w-full border">
+      <thead>
+        <tr className="bg-gray-100">
+          <th>Sr No</th>
+          <th className="p-2 border">Blog Title</th>
+          <th className="p-2 border">Category</th>
+        
+          <th>Author</th>
+           {userRole === "admin" && <th>Actions</th>} 
+        </tr>
+      </thead>
+      <tbody>
+        {blogs.length > 0 ? (
+          blogs.map((blog, index) => (
+            <tr key={blog._id} className="text-center">
+              <td className="font-semibold p-2 border">{index + 1}</td>
+              <td className="p-2 border">{blog.title}</td>
+              <td className="p-2 border">{blog.category}</td>
+              <td className="p-2 border">
+                {currentUser?.fName === blog.author ? (
+                  <span className="font-semibold text-[#00009C] dark:text-gray-200">
+                    {blog.author} (You)
+                  </span>
+                ) : (
+                  blog.author
+                )}
+              </td>
+  
+              {userRole === "admin" && (
+                <td className="p-2 border" >
+                 
+                  
+                   
+                  <button onClick={() => router.push("/dashboard/blogs/new/" + blog._id)} className="px-3 py-1 cursor-pointer bg-blue-500 text-white rounded mr-2">
+                        Edit
+                      </button>
+                    <DeleteBlog id={blog._id} />
               
+                </td>
+              )}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="5" className="p-4 text-center text-gray-500">
+              No blogs found
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+  
   );
 }

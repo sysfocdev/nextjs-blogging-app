@@ -1,20 +1,45 @@
-// app/api/subcategories/route.js
-import mongoose from "mongoose";
 import { NextResponse } from "next/server";
+import mongoose from "mongoose";
 import { connectionStr } from "@/lib/db";
-import { Category } from "@/lib/model/Category";
+import { SubCategory } from "@/lib/model/SubCategory";
+import { Category } from "@/lib/model/Category"; // ✅ import Category
 
-export async function GET() {
+export async function GET(req) {
   try {
     await mongoose.connect(connectionStr);
 
-    // ✅ Sirf subcategories get karo (jinke parent null nahi hai)
-    const subcategories = await Category.find({ parent: { $ne: null } })
-      .populate("parent", "categoryName") // 👈 parent category ka naam bhi lao
-      .sort({ createdAt: -1 });
+    const { searchParams } = new URL(req.url);
+    const categoryId = searchParams.get("categoryId");
+
+    const filter = categoryId ? { category: categoryId } : {};
+    const subcategories = await SubCategory.find(filter).populate("category");
 
     return NextResponse.json({ success: true, subcategories });
   } catch (err) {
     return NextResponse.json({ success: false, error: err.message });
   }
 }
+
+
+// POST new subcategory
+export async function POST(req) {
+    try {
+      await mongoose.connect(connectionStr);
+      const body = await req.json();
+  
+      // Create subcategory with all required fields
+      const sub = new SubCategory({
+        category: body.category,
+        subCategoryName: body.subCategoryName,
+        metaTitle: body.metaTitle,
+        metaDescription: body.metaDescription,
+        h1Title: body.h1Title,
+      });
+  
+      await sub.save();
+  
+      return NextResponse.json({ success: true, subcategory: sub });
+    } catch (err) {
+      return NextResponse.json({ success: false, error: err.message });
+    }
+  }

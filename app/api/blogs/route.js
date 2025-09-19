@@ -3,48 +3,49 @@ import { connectionStr } from "../../../lib/db";
 import { Blog } from "../../../lib/model/blog";
 import { NextResponse } from "next/server";
 
-
 // ================== CREATE NEW BLOG ==================
 export async function POST(request) {
-  try {
-    await mongoose.connect(connectionStr);
-
-    const body = await request.json();
-
-    // convert tags string → array
-    const tagsArray =
-      typeof body.tags === "string"
-        ? body.tags.split(",").map((t) => t.trim())
-        : [];
-
-    const newBlog = new Blog({
-      title: body.title,
-      slug: body.slug,
-      content: body.content,
-      category: body.category, // ✅ ObjectId (category _id)
-      subcategory: body.subcategory || null, // ✅ optional subcategory
-      tags: tagsArray,
-      coverImg: body.coverImg,
-      isPublished: body.isPublished,
-      author: body.author,
-    });
-
-    await newBlog.save();
-
-    return NextResponse.json({ success: true, blog: newBlog });
-  } catch (error) {
-    return NextResponse.json({ success: false, error: error.message });
+  
+    try {
+  
+      await mongoose.connect(connectionStr)
+  
+      const body = await request.json();
+  
+      // convert tags string -> array if provided
+      const tagsArray =
+        typeof body.tags === "string"
+          ? body.tags.split(",").map((t) => t.trim())
+          : [];
+  
+      const newBlog = new Blog({
+        title: body.title,
+        slug: body.slug,
+        content: body.content,
+        category: body.category,
+        
+        tags: tagsArray,
+        coverImg: body.coverImg,
+        isPublished: body.isPublished,
+        author: body.author,
+      });
+  
+      await newBlog.save();
+  
+      return NextResponse.json({ success: true, blog: newBlog });
+    } catch (error) {
+      return NextResponse.json({ success: false, error: error.message });
+    }
   }
-}
 
-// ================== GET ALL BLOGS ==================
+
+
 export async function GET() {
   try {
     await mongoose.connect(connectionStr);
-
     const blogs = await Blog.find()
-      .populate("category", "categoryName")   // 👈 sirf categoryName fetch
-      .populate("subcategory", "categoryName"); // 👈 subcategory bhi
+      .populate("category")  // pulls full category object
+      .sort({ createdAt: -1 })
 
     return NextResponse.json({ success: true, blogs });
   } catch (err) {

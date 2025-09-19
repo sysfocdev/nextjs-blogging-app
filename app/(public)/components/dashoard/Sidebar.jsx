@@ -79,7 +79,7 @@ export default function Sidebar() {
            {userRole ==="admin" &&(
             <li >
             <Link
-              href={"/dashboard/subCategories"}
+              href={"/dashboard/addSubcategory"}
               className={`flex items-center gap-3 px-4 py-2 rounded-lg transition 
               ${pathname === "dashboard/showCategories" ? "bg-gray-700" : "hover:bg-gray-800"}`}
             >
@@ -91,9 +91,9 @@ export default function Sidebar() {
           {userRole ==="admin" &&(
             <li >
             <Link
-              href={"/dashboard/showSubCategories"}
+              href={"/dashboard/subcategories"}
               className={`flex items-center gap-3 px-4 py-2 rounded-lg transition 
-              ${pathname === "dashboard/showCategories" ? "bg-gray-700" : "hover:bg-gray-800"}`}
+              ${pathname === "dashboard/subcategories" ? "bg-gray-700" : "hover:bg-gray-800"}`}
             >
               <FileSpreadsheet size={20} />
               <span>All Sub Categories</span>
