@@ -76,6 +76,30 @@ export default function Sidebar() {
             </Link>
           </li>
           )}
+           {userRole ==="admin" &&(
+            <li >
+            <Link
+              href={"/dashboard/subCategories"}
+              className={`flex items-center gap-3 px-4 py-2 rounded-lg transition 
+              ${pathname === "dashboard/showCategories" ? "bg-gray-700" : "hover:bg-gray-800"}`}
+            >
+              <FileSpreadsheet size={20} />
+              <span>SubCategories</span>
+            </Link>
+          </li>
+          )}
+          {userRole ==="admin" &&(
+            <li >
+            <Link
+              href={"/dashboard/showSubCategories"}
+              className={`flex items-center gap-3 px-4 py-2 rounded-lg transition 
+              ${pathname === "dashboard/showCategories" ? "bg-gray-700" : "hover:bg-gray-800"}`}
+            >
+              <FileSpreadsheet size={20} />
+              <span>All Sub Categories</span>
+            </Link>
+          </li>
+          )}
 
           
 
