@@ -12,7 +12,7 @@ export async function GET(req) {
     const categoryId = searchParams.get("categoryId");
 
     const filter = categoryId ? { category: categoryId } : {};
-    const subcategories = await SubCategory.find(filter).populate("category");
+    const subcategories = await SubCategory.find(filter).populate("category").sort({createdAt:-1});
 
     return NextResponse.json({ success: true, subcategories });
   } catch (err) {
