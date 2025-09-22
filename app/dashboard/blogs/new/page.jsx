@@ -71,14 +71,26 @@ export default function NewBlogForm() {
     e.preventDefault();
     try {
       const user = JSON.parse(localStorage.getItem("user"));
-      const blogData = { ...form, author: user?.fName || "Unknown" };
-
+  
+      // Convert tags to array
+      const tagsArray =
+        typeof form.tags === "string"
+          ? form.tags.split(",").map((t) => t.trim()).filter(Boolean)
+          : form.tags;
+  
+      const blogData = {
+        ...form,
+        tags: tagsArray,
+        author: user?.fName || "Unknown",
+        subcategory: form.subcategory || null, // ✅ fix
+      };
+  
       const res = await fetch("/api/blogs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(blogData),
       });
-
+  
       const data = await res.json();
       if (data.success) {
         toast.success("Blog created successfully!");
@@ -99,6 +111,7 @@ export default function NewBlogForm() {
       toast.error("Failed to create blog");
     }
   };
+  
 
   return (
     <div className="flex min-h-screen">

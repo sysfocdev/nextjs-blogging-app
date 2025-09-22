@@ -23,7 +23,7 @@ export async function POST(request) {
         slug: body.slug,
         content: body.content,
         category: body.category,
-        
+        subcategory: body.subcategory || null,
         tags: tagsArray,
         coverImg: body.coverImg,
         isPublished: body.isPublished,
@@ -44,7 +44,8 @@ export async function GET() {
   try {
     await mongoose.connect(connectionStr);
     const blogs = await Blog.find()
-      .populate("category")  // pulls full category object
+      .populate("category")
+      .populate("subcategory")  // pulls full category object
       .sort({ createdAt: -1 })
 
     return NextResponse.json({ success: true, blogs });

@@ -39,11 +39,13 @@ export default function DashboardTable() {
     <table className="w-full border">
       <thead>
         <tr className="dark:bg-black">
-          <th>Sr No</th>
+          <th className="p-2 border">Sr No</th>
           <th className="p-2 border">Blog Title</th>
-          <th className="p-2 border">Category</th>
+          <th className="p-2 border">Category</th> 
+          <th className="p-2 border">SubCat</th>
+      
         
-          <th>Author</th>
+          <th className="p-2 border">Author</th>
            {userRole === "admin" && <th>Actions</th>} 
         </tr>
       </thead>
@@ -54,6 +56,9 @@ export default function DashboardTable() {
               <td className="font-semibold p-2 border">{index + 1}</td>
               <td className="p-2 border">{blog.title}</td>
               <td className="p-2 border">{blog.category?.categoryName}</td>
+              <td className="p-2 border">{blog.subcategory?.subCategoryName}</td>
+            
+
               <td className="p-2 border">
                 {currentUser?.fName === blog.author ? (
                   <span className="font-semibold text-[#00009C] dark:text-gray-200">
