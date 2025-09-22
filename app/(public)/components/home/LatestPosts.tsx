@@ -1,115 +1,104 @@
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+"use client";
+import { useEffect, useState } from "react";
 
-const data = [
-  {
-    id: 1,
-    title: "60 Things To Immediately Do About Building",
-    description:
-      "The European languages are members of the same family. Their separate existence is a myth",
-    date: "August 17, 2022",
-  },
-  {
-    id: 2,
-    title: "3 Easy Ways To Make Your iPhone Faster",
-    description:
-      "The European languages are members of the same family. Their separate existence is a myth",
-    date: "August 17, 2022",
-  },
-  {
-    id: 3,
-    title: "Facts About Business That Will Help You Success",
-    description:
-      "The European languages are members of the same family. Their separate existence is a myth",
-    date: "August 17, 2022",
-  },
-  {
-    id: 4,
-    title: "Your Light Is About To Stop Being Relevant",
-    description:
-      "The European languages are members of the same family. Their separate existence is a myth",
-    date: "August 17, 2022",
-  },
-];
+export default function ShowSubCategories() {
+  const [subCat, setSubCat] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-const LatestPosts = () => {
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const res = await fetch("/api/subcategories", {
+          cache: "no-cache",
+          signal: controller.signal,
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(`HTTP ${res.status}: ${text || res.statusText}`);
+        }
+
+        const data = await res.json();
+
+        // safe assignment (handles cases where API shape changes)
+        if (data && data.success) {
+          setSubCat(Array.isArray(data.subcategories) ? data.subcategories : []);
+        } else {
+          throw new Error(data?.error || "API returned success:false");
+        }
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.error("Fetch subcategories error:", err);
+          setError(err.message || "Failed to fetch subcategories");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+    return () => controller.abort();
+  }, []);
+
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-40">
+        <p className="text-gray-600">Loading categories...</p>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="max-w-4xl mx-auto mt-10 p-6 shadow rounded text-red-600">
+        Error: {error}
+      </div>
+    );
+
   return (
-    <section className='mt-12'>
-      <div className='my-4'>
-        <div className='flex items-center'>
-          <h3 className='text-2xl font-bold'>Latest Posts</h3>
-        </div>
-        <div className='mt-2'>
-          <svg width='33' height='6' xmlns='http://www.w3.org/2000/svg'>
-            <defs>
-              <linearGradient id='gradient' x1='0%' y1='0%' x2='100%' y2='0%'>
-                <stop offset='0%' stopColor='#FE4F70'></stop>
-                <stop offset='100%' stopColor='#FFA387'></stop>
-              </linearGradient>
-            </defs>
-            <path
-              d='M33 1c-3.3 0-3.3 4-6.598 4C23.1 5 23.1 1 19.8 1c-3.3 0-3.3 4-6.599 4-3.3 0-3.3-4-6.6-4S3.303 5 0 5'
-              stroke='url(#gradient)'
-              strokeWidth='2'
-              fill='none'
-            ></path>
-          </svg>
-        </div>
-      </div>
-      <div className='border border-gray-200/70 rounded-xl'>
-        <div className='p-4'>
-          <div className='flex flex-col'>
-            {data?.map((post, index) => (
-              <div
-                key={post?.id}
-                className={`flex items-center flex-wrap md:flex-nowrap gap-x-5 pb-4 ${
-                  index !== 0 ? "pt-4 border-t border-gray-200/70" : ""
-                }`}
-              >
-                <div className='w-full md:w-[300px] h-[300px] md:h-[200px] rounded-md overflow-hidden relative shrink-0'>
-                  <Image
-                    src='/blog-img.jpg'
-                    alt='blog-image'
-                    fill
-                    className='object-cover'
-                    fetchPriority='high'
-                    priority
-                  />
-                  <div className='absolute top-4 left-4'>
-                    <button className='w-fit py-2 px-4 bg-gradient-to-r from-[#FE4F70] to-[#FFA387] text-white rounded-full text-sm'>
-                      Fashion
-                    </button>
-                  </div>
-                </div>
-                <div>
-                  <div className='my-3 flex items-center gap-x-5'>
-                    <div className='flex items-center gap-x-3'>
-                      <div className='relative w-8 h-8'>
-                        <Image
-                          src='/blog-img.jpg'
-                          alt='profile'
-                          fill
-                          className='object-cover rounded-full'
-                        />
-                      </div>
-                      <p className='text-sm font-semibold'>Hamza Ilyas</p>
-                    </div>
-                    <div className='w-1 h-1 rounded-full bg-[#FE4F70]' />
-                    <p className='text-sm'>March 23, 2023</p>
-                  </div>
-                  <Link href={`/posts/${post.id}`}>
-                    <h3 className='font-bold text-xl'>{post?.title}</h3>
-                  </Link>
-                  <p className='text-gray-400 my-2'>{post?.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+    <div className="max-w-4xl mx-auto mt-10 p-6 shadow rounded">
+      <h2 className="text-xl font-bold mb-4">All Subcategories</h2>
 
-export default LatestPosts;
+      <table className="w-full border">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="p-2 border">Subcategory Name</th>
+            <th className="p-2 border">Parent Category</th>
+            <th className="p-2 border">Meta Title</th>
+            <th className="p-2 border">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {Array.isArray(subCat) && subCat.length > 0 ? (
+            subCat.map((sub) => (
+              <tr key={sub._id} className="text-center">
+                <td className="p-2 border">{sub?.subCategoryName ?? "—"}</td>
+                <td className="p-2 border">
+                  {sub?.category?.categoryName ?? "—"}
+                </td>
+                <td className="p-2 border">{sub?.metaTitle ?? "—"}</td>
+                <td className="p-2 border flex justify-center gap-2">
+                  <button className="px-3 py-1 bg-blue-500 text-white rounded">
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4" className="p-4 text-center text-gray-500">
+                No subcategories found
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+}

@@ -1,75 +1,48 @@
 "use client";
+import  Sidebar  from '../../(public)/components/dashoard/Sidebar';
+import DashboardNavbar from "../../(public)/components/dashoard/DashboardNavbar";
+import Link from 'next/link';
+import { ArrowLeft, Plus } from 'lucide-react';
+import ShowSubCategories from '../../(public)/components/dashoard/ShowSubcategories';
 
-import { useEffect, useState } from "react";
-import Sidebar from "../../(public)/components/dashoard/Sidebar";
-import DashboardNavbar from "@/app/(public)/components/dashoard/DashboardNavbar";
-import DeleteSubCat from "../../../lib/DeleteSubCat";
+
 
 export default function Page() {
-  const [subcategories, setSubcategories] = useState([]);
-
-  useEffect(() => {
-    const fetchSubCategories = async () => {
-      try {
-        const res = await fetch("/api/subcategories");
-        const data = await res.json();
-        if (data.success) {
-          setSubcategories(data.subcategories);
-        }
-      } catch (err) {
-        console.error("Error fetching subcategories", err);
-      }
-    };
-    fetchSubCategories();
-  }, []);
-
   return (
-    <div className="flex min-h-screen">
+    <div className="flex h-screen">
+      {/* Sidebar fixed */}
       <div className="w-64 h-screen sticky top-0 border-r border-gray-200 dark:border-gray-700">
         <Sidebar />
       </div>
 
-      <div className="flex-1">
-        <DashboardNavbar />
-        <div className="max-w-4xl mx-auto mt-10 p-6 bg-white shadow rounded">
-          <h2 className="text-xl font-bold mb-4">All Subcategories</h2>
+      {/* Main dashboard content - scrollable */}
+      <div className="flex-1 flex flex-col overflow-y-auto h-screen">
+        {/* Navbar fixed at top */}
+        <div className="sticky top-0 z-10 bg-white dark:bg-gray-900 shadow">
+         <DashboardNavbar/>
+        </div>
 
-          <table className="w-full border">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="p-2 border">Subcategory Name</th>
-                <th className="p-2 border">Parent Category</th>
-                <th className="p-2 border">Meta Title</th>
-                <th className="p-2 border">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {subcategories.length > 0 ? (
-                subcategories.map((sub) => (
-                  <tr key={sub._id} className="text-center">
-                    <td className="p-2 border">{sub.subCategoryName}</td>
-                    <td className="p-2 border">
-                    {sub.category ? sub.category.categoryName : "—"}
+        {/* Back button + Add button */}
+        <div className="mt-6 mx-8 w-[90%] flex items-center justify-between">
+          <Link
+            href="/dashboard/blogs"
+            className="bg-gradient-to-r from-[#d397fa] to-[#8364e8] px-4 py-2 rounded-sm cursor-pointer text-white"
+          >
+            <ArrowLeft className="transition-transform duration-700 hover:rotate-[360deg]" />
+          </Link>
 
-                    </td>
-                    <td className="p-2 border">{sub.metaTitle}</td>
-                    <td className="p-2 border flex justify-center gap-2">
-                      <button className="px-3 py-1 bg-blue-500 text-white rounded">
-                        Edit
-                      </button>
-                     <DeleteSubCat id={sub._id}/>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="4" className="p-4 text-center text-gray-500">
-                    No subcategories found
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+          <Link
+            href="/dashboard/addSubcategory"
+            className="flex items-center gap-2 bg-gradient-to-r from-[#d397fa] to-[#8364e8] px-4 py-2 rounded-sm cursor-pointer text-white"
+          >
+            <Plus className="transition-transform duration-700 hover:rotate-[360deg]" />
+            Add Sub Category
+          </Link>
+        </div>
+
+        {/* Subcategory Table */}
+        <div className="mt-10 px-6">
+          <ShowSubCategories />
         </div>
       </div>
     </div>

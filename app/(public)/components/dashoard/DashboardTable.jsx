@@ -38,7 +38,7 @@ export default function DashboardTable() {
   
     <table className="w-full border">
       <thead>
-        <tr className="bg-gray-100">
+        <tr className="light:bg-gray-100">
           <th>Sr No</th>
           <th className="p-2 border">Blog Title</th>
           <th className="p-2 border">Category</th>

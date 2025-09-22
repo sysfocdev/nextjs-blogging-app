@@ -92,7 +92,7 @@ export default function Sidebar() {
           {userRole ==="admin" &&(
             <li >
             <Link
-              href="/dashboard/subcategories"
+              href={"/dashboard/subcategories"}
               className={`flex items-center gap-3 px-4 py-2 rounded-lg transition 
               ${ pathname === "/dashboard/subcategories" ? "bg-gray-700" : "hover:bg-gray-800"}`}
             >
