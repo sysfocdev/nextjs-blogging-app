@@ -1,9 +1,10 @@
-"use client";
-import  Sidebar  from '../../(public)/components/dashoard/Sidebar';
+import Link from "next/link";
 import DashboardNavbar from "../../(public)/components/dashoard/DashboardNavbar";
-import Link from 'next/link';
-import { ArrowLeft, Plus } from 'lucide-react';
-import ShowSubCategories from '../../(public)/components/dashoard/ShowSubcategories';
+import Sidebar from "../../(public)/components/dashoard/Sidebar";
+import ShowSubCategories from "../../(public)/components/dashoard/ShowSubCategories";
+import { ArrowLeft, Plus } from "lucide-react";
+
+
 
 
 
@@ -12,14 +13,14 @@ export default function Page() {
     <div className="flex h-screen">
       {/* Sidebar fixed */}
       <div className="w-64 h-screen sticky top-0 border-r border-gray-200 dark:border-gray-700">
-        <Sidebar />
+      <Sidebar/>
       </div>
 
       {/* Main dashboard content - scrollable */}
       <div className="flex-1 flex flex-col overflow-y-auto h-screen">
         {/* Navbar fixed at top */}
         <div className="sticky top-0 z-10 bg-white dark:bg-gray-900 shadow">
-         <DashboardNavbar/>
+          <DashboardNavbar/>
         </div>
 
         {/* Back button + Add button */}
@@ -42,7 +43,7 @@ export default function Page() {
 
         {/* Subcategory Table */}
         <div className="mt-10 px-6">
-          <ShowSubCategories />
+         <ShowSubCategories/>
         </div>
       </div>
     </div>

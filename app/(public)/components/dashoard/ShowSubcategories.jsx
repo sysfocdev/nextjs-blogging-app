@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
 
-
+import DeleteSubCategory from "../../../../lib/DeleteSubCategory";
 
 export default function ShowSubCategories() {
   const [subCat, setSubCat] = useState([]);
@@ -30,7 +30,7 @@ export default function ShowSubCategories() {
     fetchCategories();
   }, []);
 
-  if (loading) return <p>Loading categories...</p>;
+  if (loading) return <p>Loading Sub categories...</p>;
 
   return (
     <div className="max-w-4xl mx-auto  p-6 shadow rounded">
@@ -58,6 +58,7 @@ export default function ShowSubCategories() {
                   <button className="px-3 py-1 bg-blue-500 text-white rounded">
                     Edit
                   </button>
+                  <DeleteSubCategory id={sub._id}/>
                 
                 </td>
               </tr>
