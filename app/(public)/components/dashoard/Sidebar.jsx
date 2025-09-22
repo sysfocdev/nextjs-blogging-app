@@ -88,12 +88,13 @@ export default function Sidebar() {
             </Link>
           </li>
           )}
+
           {userRole ==="admin" &&(
             <li >
             <Link
               href={"/dashboard/subcategories"}
               className={`flex items-center gap-3 px-4 py-2 rounded-lg transition 
-              ${pathname === "/dashboard/subcategories" ? "bg-gray-700" : "hover:bg-gray-800"}`}
+              ${ pathname === "/dashboard/subcategories" ? "bg-gray-700" : "hover:bg-gray-800"}`}
             >
               <FileSpreadsheet size={20} />
               <span>All Sub Categories</span>

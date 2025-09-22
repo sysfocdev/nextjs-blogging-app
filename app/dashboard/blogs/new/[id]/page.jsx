@@ -1,5 +1,6 @@
 "use client";
 import { Suspense, useState, useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
 import DashboardNavbar from "../../../../(public)/components/dashoard/DashboardNavbar";
 import Sidebar from "../../../../(public)/components/dashoard/Sidebar";
 import Link from "next/link";
@@ -20,20 +21,24 @@ const editorConfig = {
   processPasteHTML: true,
 };
 
-export default function EditBlogForm({ params }) {
-  const { id } = params;
+export default function EditBlogForm() {
+  const params = useParams();
+  const router = useRouter();
+  const id = params.id;
 
   const [form, setForm] = useState({
     title: "",
     slug: "",
     content: "",
     category: "",
+    subcategory: "",
     tags: "",
     coverImg: "",
     isPublished: false,
   });
 
   const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
 
   // 🟢 Fetch categories
   useEffect(() => {
@@ -41,16 +46,26 @@ export default function EditBlogForm({ params }) {
       try {
         const res = await fetch("/api/categories");
         const data = await res.json();
-        if (data.success) {
-          setCategories(data.categories);
-        } else {
-          console.error("Failed to load categories:", data);
-        }
+        if (data.success) setCategories(data.categories);
       } catch (err) {
         console.error("Failed to fetch categories:", err);
       }
     };
     fetchCategories();
+  }, []);
+
+  // 🟢 Fetch subcategories
+  useEffect(() => {
+    const fetchSubcategories = async () => {
+      try {
+        const res = await fetch("/api/subcategories");
+        const data = await res.json();
+        if (data.success) setSubcategories(data.subcategories);
+      } catch (err) {
+        console.error("Failed to fetch subcategories:", err);
+      }
+    };
+    fetchSubcategories();
   }, []);
 
   // 🟢 Fetch blog data to pre-fill form
@@ -69,11 +84,7 @@ export default function EditBlogForm({ params }) {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-
-    let newForm = {
-      ...form,
-      [name]: type === "checkbox" ? checked : value,
-    };
+    let newForm = { ...form, [name]: type === "checkbox" ? checked : value };
 
     if (name === "title") {
       newForm.slug = value
@@ -82,29 +93,19 @@ export default function EditBlogForm({ params }) {
         .trim()
         .replace(/\s+/g, "-");
     }
-
     setForm(newForm);
   };
 
-  // 🟢 File input handling (convert to base64)
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
     const reader = new FileReader();
-    reader.onload = () => {
-      setForm((prev) => ({ ...prev, coverImg: reader.result }));
-    };
-    reader.onerror = (err) => {
-      console.error("File read error:", err);
-      toast.error("Failed to read file");
-    };
+    reader.onload = () => setForm((prev) => ({ ...prev, coverImg: reader.result }));
     reader.readAsDataURL(file);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const blogData = { ...form, author: user?.fName || "Unknown" };
@@ -116,10 +117,9 @@ export default function EditBlogForm({ params }) {
       });
 
       const data = await res.json();
-
       if (data.success) {
         toast.success("Blog updated successfully!");
-        router.push("/dashboard")
+        router.push("/dashboard");
       } else {
         toast.error(data.error || "Update failed");
       }
@@ -130,46 +130,45 @@ export default function EditBlogForm({ params }) {
 
   return (
     <div className="flex min-h-screen">
-      {/* Sidebar */}
       <div className="w-64 h-screen sticky top-0 border-r border-gray-200 dark:border-gray-700">
         <Sidebar />
       </div>
 
-      {/* Main */}
       <div className="flex-1">
         <DashboardNavbar />
 
-        {/* Back button */}
         <div className="mt-5 mx-8 w-fit px-4 py-2 rounded-sm cursor-pointer bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
           <Link href={"/dashboard/blogs"}>
             <ArrowLeft className="transition-transform duration-700 hover:rotate-[360deg]" />
           </Link>
         </div>
 
-        {/* Edit Blog Form */}
         <div className="max-w-2xl mx-auto p-6 overflow-y-auto shadow-md rounded-2xl">
           <h2 className="text-xl font-semibold mb-4">Edit Blog</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Title */}
             <input
               type="text"
               name="title"
-              placeholder="Title"
               value={form.title}
               onChange={handleChange}
               className="w-full p-2 border rounded"
+              placeholder="Title"
               required
             />
 
+            {/* Slug */}
             <input
               type="text"
               name="slug"
-              placeholder="Slug (auto-generated)"
               value={form.slug}
               onChange={handleChange}
-              className="w-full p-2 border rounded "
+              className="w-full p-2 border rounded"
+              placeholder="Slug"
               required
             />
 
+            {/* Editor */}
             <div className="border rounded dark:text-black bg-black">
               <Suspense fallback={<p>Loading editor...</p>}>
                 <JoditEditor
@@ -181,7 +180,8 @@ export default function EditBlogForm({ params }) {
               </Suspense>
             </div>
 
-            <div className="flex items-center gap-3">
+            {/* Category + Subcategory */}
+            <div className="flex gap-3">
               <select
                 name="category"
                 value={form.category}
@@ -191,31 +191,51 @@ export default function EditBlogForm({ params }) {
               >
                 <option value="">-- Select Category --</option>
                 {categories.map((cat) => (
-                  <option key={cat._id} value={cat.categoryName}>
+                  <option key={cat._id} value={cat._id}>
                     {cat.categoryName}
                   </option>
                 ))}
               </select>
 
-              <input
-                type="text"
-                name="tags"
-                placeholder="Tags (comma separated)"
-                value={form.tags}
+              <select
+                name="subcategory"
+                value={form.subcategory}
                 onChange={handleChange}
-                className="w-full p-2 border rounded"
-              />
+                className="w-full p-2 border rounded dark:bg-black"
+                disabled={!form.category}
+                required
+              >
+                <option value="">-- Select Subcategory --</option>
+                {subcategories
+  .filter((sub) => String(sub.category?._id) === String(form.category))
+  .map((sub) => (
+    <option key={sub._id} value={sub._id}>
+      {sub.subCategoryName}
+    </option>
+  ))}
+
+              </select>
             </div>
+
+            {/* Tags */}
+            <input
+              type="text"
+              name="tags"
+              value={form.tags}
+              onChange={handleChange}
+              className="w-full p-2 border rounded"
+              placeholder="Tags (comma separated)"
+            />
 
             {/* File input */}
             <input
               type="file"
-              name="coverImg"
               accept="image/*"
               onChange={handleFileChange}
               className="w-full p-2 border rounded"
             />
 
+            {/* Publish */}
             <label className="flex items-center gap-2">
               <input
                 type="checkbox"

@@ -173,7 +173,7 @@ export default function NewBlogForm() {
               name="subcategory"
               value={form.subcategory}
               onChange={handleChange}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded "
               disabled={!form.category}
             >
               <option value="">-- Select Subcategory --</option>
@@ -205,7 +205,7 @@ export default function NewBlogForm() {
 
             <button
               type="submit"
-              className="w-full py-2 bg-indigo-500 text-white rounded"
+              className="w-full py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white cursor-pointer font-semibold rounded"
             >
               Create Blog
             </button>

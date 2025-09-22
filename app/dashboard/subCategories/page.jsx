@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../../(public)/components/dashoard/Sidebar";
 import DashboardNavbar from "@/app/(public)/components/dashoard/DashboardNavbar";
+import DeleteSubCat from "../../../lib/DeleteSubCat";
 
 export default function Page() {
   const [subcategories, setSubcategories] = useState([]);
@@ -56,9 +57,7 @@ export default function Page() {
                       <button className="px-3 py-1 bg-blue-500 text-white rounded">
                         Edit
                       </button>
-                      <button className="px-3 py-1 bg-red-500 text-white rounded">
-                        Delete
-                      </button>
+                     <DeleteSubCat id={sub._id}/>
                     </td>
                   </tr>
                 ))

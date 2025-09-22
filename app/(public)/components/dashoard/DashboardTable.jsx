@@ -28,56 +28,11 @@ export default function DashboardTable() {
       });
   }, []);
 
+  
+
+
   return (
-    // <div className="overflow-x-auto mx-8">
-    //   <table className="table">
-    //     <thead className="bg-[#9377E0] text-white">
-    //       <tr>
-    //         <th>#</th>
-    //         <th>Title</th>
-    //         <th>Category</th>
-    //         <th>Subcategory</th>
-    //         <th>Author</th>
-    //         {userRole === "admin" && <th>Actions</th>}
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {blogs.map((blog, index) => (
-    //         <tr key={blog._id}>
-    //           <th>{index + 1}</th>
-    //           <td>{blog.title}</td>
-    //           {/* 👇 Purana style — sirf IDs show karega */}
-    //           <td>{blog.category}</td>
-
-    //           <td>
-    //             {currentUser?.fName === blog.author ? (
-    //               <span className="font-semibold text-[#00009C] dark:text-gray-200">
-    //                 {blog.author} (You)
-    //               </span>
-    //             ) : (
-    //               blog.author
-    //             )}
-    //           </td>
-
-    //           {userRole === "admin" && (
-    //             <td>
-    //               <div className="flex items-center gap-2">
-    //                 <button
-    //                   onClick={() =>
-    //                     router.push("/dashboard/blogs/new/" + blog._id)
-    //                   }
-    //                 >
-    //                   <SquarePen cursor={"pointer"} color="#EF9B0F" />
-    //                 </button>
-    //                 <DeleteBlog id={blog._id} />
-    //               </div>
-    //             </td>
-    //           )}
-    //         </tr>
-    //       ))}
-    //     </tbody>
-    //   </table>
-    // </div>
+   
     <div className="max-w-4xl mx-auto p-6 dark:bg-black shadow rounded">
     <h2 className="text-xl font-bold mb-4">All Blogs</h2>
   
@@ -98,7 +53,7 @@ export default function DashboardTable() {
             <tr key={blog._id} className="text-center">
               <td className="font-semibold p-2 border">{index + 1}</td>
               <td className="p-2 border">{blog.title}</td>
-              <td className="p-2 border">{blog.category}</td>
+              <td className="p-2 border">{blog.category?.categoryName}</td>
               <td className="p-2 border">
                 {currentUser?.fName === blog.author ? (
                   <span className="font-semibold text-[#00009C] dark:text-gray-200">
