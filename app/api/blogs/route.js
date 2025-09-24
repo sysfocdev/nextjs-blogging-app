@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 import { connectionStr } from "@/lib/db";
 
 // ✅ Import models so Mongoose registers them
-import { Blog } from "@/lib/model/Blog";
+
 import { Category } from "@/lib/model/Category";
 import { SubCategory } from "@/lib/model/SubCategory";
+import { Blog } from "../../../lib/model/blog";
 
 // ====== CREATE NEW BLOG ======
 export async function POST(request) {
