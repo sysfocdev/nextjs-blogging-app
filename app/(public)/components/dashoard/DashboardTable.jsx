@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import DeleteBlog from "../../../../lib/DeleteBlog";
+import { FileText } from "lucide-react";
 
 export default function DashboardTable() {
   const [blogs, setBlogs] = useState([]);
@@ -26,7 +27,7 @@ export default function DashboardTable() {
 
   return (
     <div className="max-w-4xl mx-auto p-6 dark:bg-black shadow rounded">
-      <h2 className="text-xl font-bold mb-4">All Blogs</h2>
+      <h2 className="text-xl flex items-center gap-1 font-bold mb-4">All Blogs</h2>
 
       <table className="w-full border">
         <thead>
@@ -43,7 +44,7 @@ export default function DashboardTable() {
             blogs.map((blog, index) => (
               <tr key={blog._id} className="text-center">
                 <td className="font-semibold p-2 border">{index + 1}</td>
-                <td className="p-2 border">{blog.title}</td>
+                <td className="p-2 border">{blog.title.slice(0 , 30)}...</td>
                 <td className="p-2 border">{blog.category?.categoryName}</td>
                 <td className="p-2 border">
                   {currentUser?.fName === blog.author ? (

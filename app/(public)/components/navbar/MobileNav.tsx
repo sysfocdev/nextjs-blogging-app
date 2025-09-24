@@ -21,7 +21,7 @@ const MobileNav = () => {
           <Link href='/'>Home</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href='/'>Blog</Link>
+          <Link href='/categories'>Catogories</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Link href='/'>About</Link>

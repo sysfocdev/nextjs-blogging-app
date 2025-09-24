@@ -196,6 +196,7 @@ export default function NewBlogForm() {
                 </option>
               ))}
             </select>
+            
 
             <input
               type="text"

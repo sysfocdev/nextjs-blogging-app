@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import DeleteSubCategory from "../../../../lib/DeleteSubCategory"
+import { FileText } from "lucide-react";
 
 export default function ShowSubCategory(){
     const [subCat, setSubCat] = useState([]);
@@ -32,11 +33,12 @@ export default function ShowSubCategory(){
       if (loading) return <p>Loading Sub categories...</p>;
     return(
     <div className="max-w-4xl mx-auto  p-6 shadow rounded">
-      <h2 className="text-xl font-bold mb-4">All Subcategories</h2>
+      <h2 className="text-xl font-bold mb-4">Subcategories</h2>
 
       <table className="w-full border">
         <thead>
           <tr className="dark:bg-black bg-gray-100">
+            <th className="p-2 border">Sr #</th>
             <th className="p-2 border">Subcategory Name</th>
             <th className="p-2 border">Parent Category</th>
             <th className="p-2 border">Meta Title</th>
@@ -45,8 +47,9 @@ export default function ShowSubCategory(){
         </thead>
         <tbody>
           {subCat.length > 0 ? (
-            subCat.map((sub) => (
+            subCat.map((sub, index) => (
               <tr key={sub._id} className="text-center">
+                <td className="p-2 border font-semibold">{index+1}</td>
                 <td className="p-2 border">{sub.subCategoryName}</td>
                 <td className="p-2 border">
                   {sub.category ? sub.category.categoryName : "—"}
