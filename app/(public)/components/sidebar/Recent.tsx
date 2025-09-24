@@ -4,8 +4,17 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaFireFlameCurved } from "react-icons/fa6";
 
-const Recent = () => {
-  const [blogs, setBlogs] = useState([]);
+// ✅ Blog type (adjust fields according to your DB schema)
+interface Blog {
+  _id: string;
+  title: string;
+  slug: string;
+  image?: string; // optional (fallback if missing)
+  createdAt: string;
+}
+
+const Recent: React.FC = () => {
+  const [blogs, setBlogs] = useState<Blog[]>([]);
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -13,11 +22,17 @@ const Recent = () => {
         const res = await fetch("/api/blogs", {
           cache: "no-cache",
         });
-        const data = await res.json();
+        const data: { success: boolean; blogs: Blog[]; error?: string } =
+          await res.json();
 
         if (data.success) {
+          // ✅ Sort by createdAt first
+          const sorted = [...data.blogs].sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
           // ✅ take only the 4 most recent blogs
-          const latest = data.blogs.slice(0, 4);
+          const latest = sorted.slice(0, 4);
           setBlogs(latest);
         } else {
           console.error("Error fetching blogs:", data.error);
@@ -63,30 +78,30 @@ const Recent = () => {
         ) : (
           blogs.map((post) => (
             <div
-              key={post?._id}
+              key={post._id}
               className="flex items-center gap-x-5 border-t border-gray-200/70 py-4"
             >
               <div className="w-[65px] h-[65px] rounded-full overflow-hidden relative shrink-0">
                 <Image
-                  src={post?.image || "/nasir.jpg"} // ✅ fallback
-                  alt={post?.title || "blog image"}
+                  src={post.image || "/nasir.jpg"} // ✅ fallback
+                  alt={post.title || "blog image"}
                   fill
                   className="object-cover"
                 />
               </div>
               <div>
-                <Link href={`/blogs/${post?.slug || ""}`}>
-                  <h3 className="font-bold">{post?.title}</h3>
+                <Link href={`/blogs/${post.slug}`}>
+                  <h3 className="font-bold">{post.title}</h3>
                 </Link>
                 <p className="text-xs text-gray-400 mt-1">
-  {post?.createdAt
-    ? new Date(post.createdAt).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      })
-    : ""}
-</p>
+                  {post.createdAt
+                    ? new Date(post.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })
+                    : ""}
+                </p>
               </div>
             </div>
           ))
