@@ -2,7 +2,8 @@ import Link from "next/link";
 import DashboardNavbar from "../../(public)/components/dashoard/DashboardNavbar";
 import Sidebar from "../../(public)/components/dashoard/Sidebar";
 import { ArrowLeft, Plus } from "lucide-react";
-import ShowSubCategories from "@/app/(public)/components/dashoard/ShowSubCategories";
+import ShowSubCategory from "../../(public)/components/dashoard/ShowSubCategory";
+
 
 
 
@@ -43,7 +44,7 @@ export default function Page() {
 
         {/* Subcategory Table */}
         <div className="mt-10 px-6">
-      <ShowSubCategories/>
+      <ShowSubCategory/>
         </div>
       </div>
     </div>

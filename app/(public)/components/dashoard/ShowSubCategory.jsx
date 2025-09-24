@@ -1,40 +1,34 @@
-"use client"
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import DeleteSubCategory from "../../../../lib/DeleteSubCategory";
-import { useRouter } from "next/navigation";
-
-export default function ShowSubCategories() {
-  const [subCat, setSubCat] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const router= useRouter()
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        let res = await fetch("/api/subcategories", {
-          cache: "no-cache",
-        });
-        let data = await res.json();
-
-        if (data.success) {
-          setSubCat(data.subcategories); // ✅ fixed here
-        } else {
-          console.error("Error fetching categories:", data.error);
-        }
-      } catch (err) {
-        console.error("Failed to fetch categories:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCategories();
-  }, []);
-
-  if (loading) return <p>Loading Sub categories...</p>;
-
-  return (
+export default function ShowSubCategory(){
+    const [subCat, setSubCat] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const router= useRouter()
+    useEffect(() => {
+        const fetchCategories = async () => {
+          try {
+            let res = await fetch("/api/subcategories", {
+              cache: "no-cache",
+            });
+            let data = await res.json();
+    
+            if (data.success) {
+              setSubCat(data.subcategories); // ✅ fixed here
+            } else {
+              console.error("Error fetching categories:", data.error);
+            }
+          } catch (err) {
+            console.error("Failed to fetch categories:", err);
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchCategories();
+      }, []);
+      if (loading) return <p>Loading Sub categories...</p>;
+    return(
     <div className="max-w-4xl mx-auto  p-6 shadow rounded">
       <h2 className="text-xl font-bold mb-4">All Subcategories</h2>
 
@@ -75,5 +69,5 @@ export default function ShowSubCategories() {
         </tbody>
       </table>
     </div>
-  );
+    )
 }
