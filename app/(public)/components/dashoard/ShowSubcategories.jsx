@@ -2,10 +2,12 @@
 import { useEffect, useState } from "react";
 
 import DeleteSubCategory from "../../../../lib/DeleteSubCategory";
+import { useRouter } from "next/navigation";
 
 export default function ShowSubCategories() {
   const [subCat, setSubCat] = useState([]);
   const [loading, setLoading] = useState(true);
+  const router= useRouter()
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -55,7 +57,7 @@ export default function ShowSubCategories() {
                 </td>
                 <td className="p-2 border">{sub.metaTitle}</td>
                 <td className="p-2 border flex justify-center gap-2">
-                  <button className="px-3 py-1 bg-blue-500 text-white rounded">
+                  <button onClick={()=>router.push("/dashboard/subcategories/" + sub._id)} className="px-3 py-1 bg-blue-500 text-white rounded">
                     Edit
                   </button>
                   <DeleteSubCategory id={sub._id}/>

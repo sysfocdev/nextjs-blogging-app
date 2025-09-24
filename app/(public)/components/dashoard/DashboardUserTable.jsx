@@ -107,15 +107,13 @@ export default function DashboardUserTable() {
               </td>
 
               {userRole === "admin" && ( // 👈 actions only for admin
-                <td>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => router.push("/dashboard/users/" + user._id)}
-                    >
-                      <SquarePen cursor="pointer" color="#EF9B0F" />
-                    </button>
+                 <td className=" flex justify-center gap-2">
+                 
+                  <button onClick={() => router.push("/dashboard/users/" + user._id)} className="px-3 py-1 cursor-pointer bg-blue-500 text-white rounded mr-2">
+                        Edit
+                      </button>
                     <DeleteUser id={user._id} />
-                  </div>
+                 
                 </td>
               )}
             </tr>
