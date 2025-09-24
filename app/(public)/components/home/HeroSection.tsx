@@ -9,13 +9,13 @@ const HeroSection = () => {
   useEffect(() => {
     const fetchLatestBlog = async () => {
       try {
-        const res = await fetch("/api/blogs", { cache: "no-cache" });
+        const res = await fetch("/api/blogs");
         const data = await res.json();
 
         if (data.success && data.blogs.length > 0) {
           // ✅ sort by createdAt (newest first)
-          const sorted = [...data.blogs].sort(
-            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          const sorted = [...data.blogs].sort((a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           );
           setLatestBlog(sorted[0]); // ✅ pick latest
         }
@@ -39,7 +39,7 @@ const HeroSection = () => {
     <div className="relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-xl group">
       {/* Blog Image */}
       <Image
-        src={latestBlog?.image || "/Mood-Booster.png"}
+        src={latestBlog?.coverImg || "/Mood-Booster.png"}
         alt={latestBlog?.title || "hero-img"}
         fill
         className="object-cover rounded-xl group-hover:scale-105 transition-all duration-500 ease-in-out"
