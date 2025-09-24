@@ -71,6 +71,13 @@ export default function DashboardGrid() {
            <p className="text-sm opacity-90">Manage All Categories, Add, Update & Delete.</p>
         </Link>
       )}
+      {userRole==="admin" && (
+        <Link href="/dashboard/subcategories"
+        className="bg-gradient-to-r from-[#ffb88e] to-[#ea5753] rounded-2xl p-6 shadow-lg text-white hover:scale-105 transition-transform cursor-pointer">
+           <h2 className="text-xl font-bold mb-2">All Sub Categories</h2>
+           <p className="text-sm opacity-90">Manage All Sub Categories, Add, Update & Delete.</p>
+        </Link>
+      )}
       {cards.map((card, idx) => (
         <Link
           key={idx}
