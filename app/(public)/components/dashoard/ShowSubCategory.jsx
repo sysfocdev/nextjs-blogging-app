@@ -1,5 +1,7 @@
+"use client"
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import DeleteSubCategory from "../../../../lib/DeleteSubCategory"
 
 export default function ShowSubCategory(){
     const [subCat, setSubCat] = useState([]);
