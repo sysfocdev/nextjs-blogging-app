@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import DeleteSubCategory from "../../../../lib/DeleteSubCategory"
-import { FileText } from "lucide-react";
+
 
 export default function ShowSubCategory(){
     const [subCat, setSubCat] = useState([]);

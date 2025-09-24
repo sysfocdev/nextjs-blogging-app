@@ -10,13 +10,32 @@ export default function Page() {
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 4;
 
+
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    fetch("/api/blogs")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) setBlogs(data.blogs);
-      });
-  }, []);
+      const fetchCategories = async () => {
+        try {
+          let res = await fetch("/api/blogs", {
+            cache: "no-cache",
+          });
+          let data = await res.json();
+  
+          if (data.success) {
+            setBlogs(data.blogs); // ✅ fixed here
+          } else {
+            console.error("Error fetching blogs:", data.error);
+          }
+        } catch (err) {
+          console.error("Failed to fetch blogs:", err);
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      fetchCategories();
+    }, []);
+    if (loading) return <span className="loading loading-bars loading-xl"></span>;
 
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
@@ -51,7 +70,7 @@ export default function Page() {
       <div className="flex items-center gap-x-3">
         <div className="relative w-8 h-8">
           <Image
-            src="/blog-img.jpg"
+            src="/nasir.jpg"
             alt="profile"
             fill
             className="object-cover rounded-full"

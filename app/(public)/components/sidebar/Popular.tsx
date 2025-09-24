@@ -1,31 +1,36 @@
+"use client"
 import Image from "next/image";
+
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaFireFlameCurved } from "react-icons/fa6";
 
-const data = [
-  {
-    id: 1,
-    title: "What Can You Do About Fashion Right Now",
-    date: "August 17, 2022",
-  },
-  {
-    id: 2,
-    title: "3 Easy Ways To Make Your iPhone Faster",
-    date: "August 17, 2022",
-  },
-  {
-    id: 3,
-    title: "Facts About Business That Will Help You Success",
-    date: "August 17, 2022",
-  },
-  {
-    id: 4,
-    title: "Your Light Is About To Stop Being Relevant",
-    date: "August 17, 2022",
-  },
-];
+
 const Popular = () => {
+  const [blogs, setBlogs] = useState([]);
+  
+
+
+
+  useEffect(() => {
+      const fetchBlogs = async () => {
+        try {
+          let res = await fetch("/api/blogs");
+          let data = await res.json();
+  
+          if (data.success) {
+            setBlogs(data.blogs); // ✅ fixed here
+          } else {
+            console.error("Error fetching blogs:", data.error);
+          }
+        } catch (err) {
+          console.error("Failed to fetch blogs:", err);
+        } 
+      };
+  
+      fetchBlogs();
+    }, []);
+  
   return (
     <div className='px-4 border border-gray-200 rounded-xl'>
       <div className='mt-4 flex flex-col items-center justify-center'>
@@ -51,14 +56,14 @@ const Popular = () => {
         </div>
       </div>
       <div className='mt-4 flex flex-col'>
-        {data?.map((post) => (
+        {blogs?.map((post) => (
           <div
-            key={post?.id}
+            key={post?._id}
             className='flex items-center gap-x-5 border-t border-gray-200/70 py-4'
           >
             <div className='w-[65px] h-[65px] rounded-full overflow-hidden relative shrink-0'>
               <Image
-                src='/blog-img.jpg'
+                src='/nasir.jpg'
                 alt='blog-image'
                 fill
                 className='object-cover'
@@ -70,7 +75,15 @@ const Popular = () => {
               <Link href='/'>
                 <h3 className='font-bold'>{post?.title}</h3>
               </Link>
-              <p className='text-xs text-gray-400 mt-1'>{post?.date}</p>
+              <p className=" text-gray-400 mt-1">
+              {post?.createdAt
+    ? new Date(post.createdAt).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })
+    : ""}
+</p>
             </div>
           </div>
         ))}
