@@ -73,7 +73,7 @@ export default function DashboardGrid() {
       )}
       {userRole==="admin" && (
         <Link href="/dashboard/subcategories"
-        className="bg-gradient-to-r from-[#ffb88e] to-[#ea5753] rounded-2xl p-6 shadow-lg text-white hover:scale-105 transition-transform cursor-pointer">
+        className="bg-gradient-to-r from-[#95f9c3] to-[#0b3866] rounded-2xl p-6 shadow-lg text-white hover:scale-105 transition-transform cursor-pointer">
            <h2 className="text-xl font-bold mb-2">All Sub Categories</h2>
            <p className="text-sm opacity-90">Manage All Sub Categories, Add, Update & Delete.</p>
         </Link>
