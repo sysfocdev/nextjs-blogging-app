@@ -1,18 +1,9 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-
-
-interface Blog {
-  _id: string;
-  title: string;
-  slug: string;
-  coverImg?: string;
-  category?: { name: string };
-  author?: string;
-  createdAt: string;
-}
+import { Blog } from "@/types/blog"; // ✅ use shared type
 
 const HeroSection: React.FC = () => {
   const [latestBlog, setLatestBlog] = useState<Blog | null>(null);
@@ -20,16 +11,15 @@ const HeroSection: React.FC = () => {
   useEffect(() => {
     const fetchLatestBlog = async () => {
       try {
-        const res = await fetch("/api/blogs", { cache: "no-cache" });
+        const res = await fetch("/api/blogs", { cache: "no-store" }); // ✅ always fresh
         const data = await res.json();
 
         if (data.success && Array.isArray(data.blogs) && data.blogs.length > 0) {
-         
           const sorted: Blog[] = [...data.blogs].sort(
-            (a: Blog, b: Blog) =>
+            (a, b) =>
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           );
-          setLatestBlog(sorted[0]); 
+          setLatestBlog(sorted[0]); // pick newest
         }
       } catch (err) {
         console.error("Failed to fetch latest blog:", err);

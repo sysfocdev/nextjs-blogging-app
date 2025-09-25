@@ -1,25 +1,19 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { FaFireFlameCurved } from "react-icons/fa6";
-
-// ✅ Blog type (adjust fields according to your schema)
-interface Blog {
-  _id: string;
-  title: string;
-  slug: string;
-  coverImg?: string;
-  createdAt: string;
-}
+import { Blog } from "@/types/blog";
 
 const Popular: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await fetch("/api/blogs");
+        const res = await fetch("/api/blogs", { cache: "no-store" });
         const data: { success: boolean; blogs: Blog[]; error?: string } =
           await res.json();
 
@@ -30,6 +24,8 @@ const Popular: React.FC = () => {
         }
       } catch (err) {
         console.error("Failed to fetch blogs:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -38,6 +34,7 @@ const Popular: React.FC = () => {
 
   return (
     <div className="px-4 border border-gray-200 rounded-xl">
+      {/* Section Header */}
       <div className="mt-4 flex flex-col items-center justify-center">
         <div className="flex items-center">
           <FaFireFlameCurved size={20} className="mr-2 text-[#FE4F70]" />
@@ -61,38 +58,54 @@ const Popular: React.FC = () => {
         </div>
       </div>
 
+      {/* Posts List */}
       <div className="mt-4 flex flex-col">
-        {blogs?.map((post) => (
-          <div
-            key={post._id}
-            className="flex items-center gap-x-5 border-t border-gray-200/70 py-4"
-          >
-            <div className="w-[65px] h-[65px] rounded-full overflow-hidden relative shrink-0">
-              <Image
-                src={post.coverImg || "/nasir.jpg"} // ✅ fallback image
-                alt={post.title}
-                fill
-                className="object-cover"
-                fetchPriority="high"
-                priority
-              />
+        {loading && (
+          <p className="text-gray-400 text-center py-4">
+            Loading popular posts…
+          </p>
+        )}
+
+        {!loading && blogs.length === 0 && (
+          <p className="text-gray-400 text-center py-4">
+            No popular posts yet
+          </p>
+        )}
+
+        {!loading &&
+          blogs.map((post) => (
+            <div
+              key={post._id}
+              className="flex items-center gap-x-5 border-t border-gray-200/70 py-4"
+            >
+              {/* Post Image */}
+              <div className="w-[65px] h-[65px] rounded-full overflow-hidden relative shrink-0">
+                <Image
+                  src={post.coverImg || "/nasir.jpg"} // fallback image
+                  alt={post.title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+
+              {/* Post Details */}
+              <div>
+                <Link href={`/blogs/${post.slug}`}>
+                  <h3 className="font-bold line-clamp-2">{post.title}</h3>
+                </Link>
+                <p className="text-gray-400 mt-1 text-sm">
+                  {post.createdAt
+                    ? new Date(post.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })
+                    : ""}
+                </p>
+              </div>
             </div>
-            <div>
-              <Link href={`/blogs/${post.slug}`}>
-                <h3 className="font-bold">{post.title}</h3>
-              </Link>
-              <p className="text-gray-400 mt-1">
-                {post.createdAt
-                  ? new Date(post.createdAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })
-                  : ""}
-              </p>
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
