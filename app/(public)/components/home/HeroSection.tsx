@@ -65,7 +65,7 @@ const HeroSection: React.FC = () => {
       {/* Content */}
       <div className="absolute inset-0 flex flex-col gap-y-5 justify-end p-5 md:p-10 text-white">
         <button className="w-fit py-2 px-4 bg-gradient-to-r from-[#FE4F70] to-[#FFA387] text-white rounded-full text-sm">
-          {latestBlog.category?.name || "Uncategorized"}
+          {latestBlog.category?.categoryName || "Uncategorized"}
         </button>
 
         <Link href={`/blogs/${latestBlog.slug}`}>
